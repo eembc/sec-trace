@@ -39,6 +39,7 @@ things back in. Switch to the `scripts` folder and run these commands:
 ./config.py set MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA_ENABLED
 ./config.py set MBEDTLS_ECDH_C
 ./config.py set MBEDTLS_ECDSA_C
+./config.py set MBEDTLS_ECDSA_DETERMINISTIC
 ./config.py set MBEDTLS_X509_CRT_PARSE_C
 ./config.py set MBEDTLS_ECP_C
 ./config.py set MBEDTLS_BIGNUM_C
