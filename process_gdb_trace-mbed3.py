@@ -207,28 +207,23 @@ class CParserLibrary:
 
     # AES/GCM functions
 
-    def mbedtls_gcm_init(self, payload):
-        self.helper_add_ctx(payload)
+    def mbedtls_gcm_init(self, stack):
+        ctx = stack[0][2]['ctx']
+        self.trace_processor.aliases.add(ctx)
 
-    def mbedtls_gcm_free(self, payload):
-        self.helper_remove_ctx(payload)
+    def mbedtls_gcm_free(self, stack):
+        ctx = stack[0][2]['ctx']
+        self.trace_processor.aliases.remove(ctx)
 
-    def mbedtls_gcm_crypt_and_tag(self, payload):
-        if payload['dir'] != 'enter':
-            return
-        ctx = payload['arg0']
-        mode = payload['arg1']
-        numbytes = int(payload['arg2'], 16)
+    def mbedtls_gcm_crypt_and_tag(self, stack):
+        ctx = stack[0][2]['ctx']
+        if int(stack[0][2]['mode']) == 0:
+            mode = "D"
+        else:
+            mode = "E"
+        n = int(stack[0][2]['length'])
         alias = self.trace_processor.aliases.get_alias(ctx)
-        self.trace_processor.post_event(stack, payload, alias, numbytes, ("gcm/%s" % mode))
-
-    def mbedtls_gcm_auth_decrypt(self, payload):
-        if payload['dir'] != 'enter':
-            return
-        ctx = payload['arg0']
-        numbytes = int(payload['arg1'], 16)
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        self.trace_processor.post_event(stack, payload, alias, numbytes, "gcm/D")
+        self.trace_processor.post_event(stack, alias, n, ("gcm/%s" % mode))
 
     # ECDH Functions
 
@@ -264,14 +259,6 @@ class CParserLibrary:
         ctx = stack[0][2]['ctx']
         alias = self.trace_processor.aliases.get_alias(ctx)
         self.trace_processor.post_event(stack, alias, 1, 'ecdsa/v')
-
-    # GCM (WIP)
-
-    def mbedtls_gcm_init(self, payload):
-        self.helper_add_ctx(payload)
-
-    def mbedtls_gcm_free(self, payload):
-        self.helper_remove_ctx(payload)
 
     # SHA256
 
@@ -309,11 +296,9 @@ class CParserLibrary:
         ctx = stack[0][2]['ctx']
         self.trace_processor.aliases.remove(ctx)
 
-    def mbedtls_sha512_clone(self, payload):
-        if payload['dir'] != 'enter':
-            return
-        src = payload['arg0']
-        dst = payload['arg1']
+    def mbedtls_sha512_clone(self, stack):
+        src = stack[0][2]['src']
+        dst = stack[0][2]['dst']
         self.trace_processor.aliases.clone(src, dst)
 
     # mbedTLS 3.x
@@ -327,11 +312,11 @@ class CParserLibrary:
         #    shortname += '.ecdsa'
         self.trace_processor.post_event(stack, alias, ilen, shortname)
 
-    # Other important high-level functions
+    # Other important high-level functions dummy attributes for nesting
 
-    def psa_hkdf_input(self, stack):
+    def psa_hkdf_input():
         pass
-    def psa_key_derivation_input_internal(self, stack):
+    def psa_key_derivation_input_internal():
         pass
     def psa_key_derivation_hkdf_read():
         pass
@@ -340,6 +325,26 @@ class CParserLibrary:
     def psa_hash_compute():
         pass
     def mbedtls_ecp_gen_privkey():
+        pass
+    def gcm_aes_setkey_wrap():
+        pass
+    def ssl_update_checksum_sha384():
+        pass
+    def ssl_update_checksum_sha256():
+        pass
+    def ssl_update_checksum_start():
+        pass
+    def ecp_mul_comb_core():
+        pass
+    def ecp_mul_comb():
+        pass
+    def ecp_mul_comb_after_precomp():
+        pass
+    def mbedtls_ecp_gen_privkey_sw():
+        pass
+    def ecp_randomize_jac():
+        pass
+    def mbedtls_md():
         pass
 
 class CTraceProcessor:

@@ -1,0 +1,133 @@
+Hooked function 'mbedtls_sha256_init'
+No hook for 'mbedtls_sha256_starts'
+Hooked function 'mbedtls_sha256_update'
+No hook for 'mbedtls_sha256'
+No hook for 'mbedtls_sha256_finish'
+Hooked function 'mbedtls_sha256_free'
+Hooked function 'mbedtls_ecdh_init'
+No hook for 'mbedtls_ecdh_get_params'
+No hook for 'mbedtls_ecdh_grp_id'
+No hook for 'mbedtls_ecdh_setup'
+Hooked function 'mbedtls_ecdh_calc_secret'
+No hook for 'mbedtls_ecdh_compute_shared'
+Hooked function 'mbedtls_ecdh_free'
+Hooked function 'mbedtls_sha256_clone'
+Hooked function 'mbedtls_ccm_init'
+No hook for 'mbedtls_ccm_setkey'
+Hooked function 'mbedtls_aes_init'
+No hook for 'mbedtls_aes_setkey_enc'
+Hooked function 'mbedtls_ccm_auth_decrypt'
+No hook for 'mbedtls_ccm_starts'
+No hook for 'mbedtls_ccm_set_lengths'
+Hooked function 'mbedtls_aes_crypt_ecb'
+No hook for 'mbedtls_internal_aes_encrypt'
+No hook for 'mbedtls_ccm_update_ad'
+No hook for 'mbedtls_ccm_update'
+No hook for 'mbedtls_ccm_crypt'
+No hook for 'mbedtls_ccm_finish'
+No hook for 'mbedtls_ccm_clear_state'
+No hook for 'mbedtls_ccm_compare_tags'
+Hooked function 'mbedtls_ecdsa_init'
+No hook for 'mbedtls_ecdsa_from_keypair'
+Hooked function 'mbedtls_ecdsa_read_signature'
+No hook for 'mbedtls_ecdsa_read_signature_restartable'
+No hook for 'mbedtls_ecdsa_can_do'
+Hooked function 'mbedtls_ecdsa_free'
+Hooked function 'mbedtls_ccm_encrypt_and_tag'
+Hooked function 'mbedtls_ecdsa_write_signature'
+No hook for 'mbedtls_ecdsa_write_signature_restartable'
+Hooked function 'mbedtls_ccm_free'
+Hooked function 'mbedtls_aes_free'
+
+Results Table
+-------------
+
+NOTE: Only these mbedTLS state codes are counted:
+ .  0 MBEDTLS_SSL_HELLO_REQUEST
+ .  1 MBEDTLS_SSL_CLIENT_HELLO
+ .  2 MBEDTLS_SSL_SERVER_HELLO
+ . 20 MBEDTLS_SSL_ENCRYPTED_EXTENSIONS
+ .  5 MBEDTLS_SSL_CERTIFICATE_REQUEST
+ .  3 MBEDTLS_SSL_SERVER_CERTIFICATE
+ .  9 MBEDTLS_SSL_CERTIFICATE_VERIFY
+ . 13 MBEDTLS_SSL_SERVER_FINISHED
+ .  7 MBEDTLS_SSL_CLIENT_CERTIFICATE
+ . 21 MBEDTLS_SSL_CLIENT_CERTIFICATE_VERIFY
+ . 11 MBEDTLS_SSL_CLIENT_FINISHED
+ . 15 MBEDTLS_SSL_HANDSHAKE_WRAPUP
+
+alias,  type                                                   ,        context:,     0,     1,     2,    20,     5,     3,     9,    13,     7,    21,    11,    15,
+00002,  sha256 (in ecp_mul_comb_after_precomp)                 ,  0x5555555d22a0,      ,      ,   577,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00002,  sha256 (in ecp_mul_comb_core)                          ,  0x5555555d22a0,      ,      ,   385,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00002,  sha256 (in ecp_mul_comb)                               ,  0x5555555d22a0,      ,      ,   192,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00009,  sha256 (in mbedtls_ecp_gen_privkey)                    ,  0x5555555d33c0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   384,      ,      ,
+00009,  sha256 (in mbedtls_ecp_gen_privkey_sw)                 ,  0x5555555d33c0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   770,      ,      ,
+00009,  sha256 (in ecp_mul_comb_core)                          ,  0x5555555d33c0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   192,      ,      ,
+00009,  sha256 (in ecp_randomize_jac)                          ,  0x5555555d33c0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   770,      ,      ,
+00009,  sha256 (in ecp_mul_comb_after_precomp)                 ,  0x5555555d33c0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   192,      ,      ,
+00016,  sha256 (in ssl_update_checksum_start)                  ,  0x5555555dd878,      ,      ,   143,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00016,  sha256 (in ssl_update_checksum_sha256)                 ,  0x5555555dd878,      ,      ,   123,     4,     6,    15,   560,   110,   496,    78,    36,      ,
+00019,  sha256 (in psa_hkdf_input)                             ,  0x7fffffff7fcc,      ,      ,    64,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00019,  sha256 (in psa_key_derivation_input_internal)          ,  0x7fffffff7fcc,      ,      ,    32,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00020,  sha256 (in psa_hkdf_input)                             ,  0x7fffffff7fcc,      ,      ,    96,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00021,  ecdh                                                   ,  0x7fffffff7d50,      ,      ,     1,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00022,  sha256 (in psa_hash_compute)                           ,  0x7fffffff7c64,      ,      ,     0,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00024,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7c3c,      ,      ,   114,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00025,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7c3c,      ,      ,    96,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00027,  sha256 (in psa_hkdf_input)                             ,  0x7fffffff7efc,      ,      ,    64,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00027,  sha256 (in psa_key_derivation_input_internal)          ,  0x7fffffff7efc,      ,      ,    32,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00028,  sha256 (in psa_hkdf_input)                             ,  0x7fffffff7efc,      ,      ,    96,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00032,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7d7c,      ,      ,   119,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00033,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7d7c,      ,      ,    96,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00035,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7d7c,      ,      ,   119,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00036,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7d7c,      ,      ,    96,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00038,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e1c,      ,      ,    78,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00039,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e1c,      ,      ,    96,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00041,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e1c,      ,      ,    78,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00042,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e1c,      ,      ,    96,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00044,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e1c,      ,      ,    77,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00045,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e1c,      ,      ,    96,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00047,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e1c,      ,      ,    77,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00048,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e1c,      ,      ,    96,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00049,  ccm/E                                                  ,  0x5555555df280,      ,      ,      ,      ,      ,      ,      ,      ,   512,    80,    48,      ,
+00050,  ccm/D                                                  ,  0x5555555df320,      ,      ,      ,    16,    16,   576,    80,    48,      ,      ,      ,      ,
+00051,  ecb/E (in mbedtls_ccm_encrypt_and_tag)                 ,  0x5555555df3c0,      ,      ,      ,      ,      ,      ,      ,      ,  1072,   208,   144,      ,
+00052,  ecb/E (in mbedtls_ccm_auth_decrypt)                    ,  0x5555555df4f0,      ,      ,      ,    80,    80,  1200,   208,   144,      ,      ,      ,      ,
+00053,  sha256 (in mbedtls_md)                                 ,  0x7fffffff7c60,      ,      ,      ,      ,      ,   425,      ,      ,      ,      ,      ,      ,
+00054,  ecdsa/v                                                ,  0x7fffffff7ad0,      ,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,      ,
+00057,  sha256 (in psa_hash_compute)                           ,  0x7fffffff7e94,      ,      ,      ,      ,      ,      ,   130,      ,      ,      ,      ,      ,
+00058,  ecdsa/v                                                ,  0x7fffffff7d60,      ,      ,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,
+00062,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e3c,      ,      ,      ,      ,      ,      ,      ,    83,      ,      ,      ,      ,
+00063,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e3c,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00064,  sha256 (in psa_mac_compute)                            ,  0x7fffffff7d10,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00065,  sha256 (in psa_mac_compute)                            ,  0x7fffffff7d10,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00066,  sha256 (in psa_hash_compute)                           ,  0x7fffffff7cc4,      ,      ,      ,      ,      ,      ,      ,     0,      ,      ,      ,      ,
+00068,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7c9c,      ,      ,      ,      ,      ,      ,      ,   114,      ,      ,      ,      ,
+00069,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7c9c,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00071,  sha256 (in psa_hkdf_input)                             ,  0x7fffffff7f5c,      ,      ,      ,      ,      ,      ,      ,    64,      ,      ,      ,      ,
+00071,  sha256 (in psa_key_derivation_input_internal)          ,  0x7fffffff7f5c,      ,      ,      ,      ,      ,      ,      ,    32,      ,      ,      ,      ,
+00072,  sha256 (in psa_hkdf_input)                             ,  0x7fffffff7f5c,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00076,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7ddc,      ,      ,      ,      ,      ,      ,      ,   119,      ,      ,      ,      ,
+00077,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7ddc,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00079,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7ddc,      ,      ,      ,      ,      ,      ,      ,   119,      ,      ,      ,      ,
+00080,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7ddc,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00082,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7ddc,      ,      ,      ,      ,      ,      ,      ,   117,      ,      ,      ,      ,
+00083,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7ddc,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00085,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e7c,      ,      ,      ,      ,      ,      ,      ,    78,      ,      ,      ,      ,
+00086,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e7c,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00088,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e7c,      ,      ,      ,      ,      ,      ,      ,    78,      ,      ,      ,      ,
+00089,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e7c,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00091,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e7c,      ,      ,      ,      ,      ,      ,      ,    77,      ,      ,      ,      ,
+00092,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e7c,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00094,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e7c,      ,      ,      ,      ,      ,      ,      ,    77,      ,      ,      ,      ,
+00095,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e7c,      ,      ,      ,      ,      ,      ,      ,    96,      ,      ,      ,      ,
+00096,  ccm/E                                                  ,  0x5555555e1da0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    64,
+00097,  ccm/D                                                  ,  0x5555555e1e40,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   144,
+00098,  ecb/E (in mbedtls_ccm_encrypt_and_tag)                 ,  0x5555555e1ee0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   224,
+00099,  ecb/E (in mbedtls_ccm_auth_decrypt)                    ,  0x5555555e2010,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   336,
+00102,  sha256 (in psa_hash_compute)                           ,  0x7fffffff7ea4,      ,      ,      ,      ,      ,      ,      ,      ,      ,   130,      ,      ,
+00103,  ecdsa/s                                                ,  0x7fffffff7d10,      ,      ,      ,      ,      ,      ,      ,      ,      ,     1,      ,      ,
+00107,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e2c,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    83,      ,
+00108,  sha256 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff7e2c,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    96,      ,
+00109,  sha256 (in psa_mac_compute)                            ,  0x7fffffff7d00,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    96,      ,
+00110,  sha256 (in psa_mac_compute)                            ,  0x7fffffff7d00,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    96,      ,
