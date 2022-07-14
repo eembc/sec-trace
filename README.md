@@ -117,7 +117,7 @@ NOTE: That the subject CN for the server and client MUST be `localhost`.
 See the script `genkeys.bash` for creating all the key and certificate material
 for each level of strength.
 
-## Collecting a Trace
+## Collecting a Trace & Processing
 
 From within the root of this repository:
 
@@ -126,7 +126,7 @@ From within the root of this repository:
 % gdb -command=command_medium.gdb ./ssl/ssl_client2 > log_medium.txt
 % fg
 % <ctrl-c>
-% ./process_gdb_trace-mbed3.py log_medium.txt
+% ./process_gdb_trace-mbed3.py log_medium.txt > table_medium.txt
 ```
 
 To zoom in on the call stack for an alias, specify the alias number, e.g., 10:
@@ -200,3 +200,9 @@ For example:
 Here alias 9 is a sha256 that uses the same context memory pointer, but is
 used for four different functions. Not shown is how many bytes are used and
 which handshake stage the occur in (all are in 21: CLIENT_CERTIFICATE_VERIFY).
+
+# Sample Data
+
+The folder `data/` contains results collected on an Ubuntu 20 machine running
+mbedTLS 3.2.1. The log contains the raw traces. The table are the final
+results.
