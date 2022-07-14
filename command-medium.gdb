@@ -1,6 +1,9 @@
 # Note: must be built with
 # -g for debug info
 # -fcf-protection=none ; early GCC can't access state prologue
+# i.e.:
+# 	% export CFLAGS="-g -O0 -fcf-protection=none"
+#   % cmake .. -DENABLE_TESTING=OFF
 
 set pagination off
 
@@ -17,15 +20,12 @@ set args \
 # Prevent the application output from mixing with backtrace!
 tty /dev/null
 
-# To capture state changes a dummy command:
-# void client_state_dummy(int state)
-# needs to be added to the code so that we can break on it and fetch
-# the parameter. Otherwise we need to fetch ssl->state ... which could
-# be done, save it for TODO.
-rbreak client_state_dummy
+# This prints the client state about to be executed
+# Note: the parser only expects one "print" command.
+rbreak mbedtls_ssl_tls13_handshake_client_step
 command
 silent
-backtrace
+print ssl->state
 continue 
 end
 
