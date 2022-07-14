@@ -31,54 +31,74 @@ import argparse
 # MBEDTLS_SSL_SERVER_CHANGE_CIPHER_SPEC     12
 # MBEDTLS_SSL_HANDSHAKE_OVER                16
 handshake_states = [0, 1, 2, 20, 5, 3, 9, 13, 7, 21, 11, 15]
+# Take from `ssl.h`
+mbedtls3_state_names = [
+    'MBEDTLS_SSL_HELLO_REQUEST',
+    'MBEDTLS_SSL_CLIENT_HELLO',
+    'MBEDTLS_SSL_SERVER_HELLO',
+    'MBEDTLS_SSL_SERVER_CERTIFICATE',
+    'MBEDTLS_SSL_SERVER_KEY_EXCHANGE',
+    'MBEDTLS_SSL_CERTIFICATE_REQUEST',
+    'MBEDTLS_SSL_SERVER_HELLO_DONE',
+    'MBEDTLS_SSL_CLIENT_CERTIFICATE',
+    'MBEDTLS_SSL_CLIENT_KEY_EXCHANGE',
+    'MBEDTLS_SSL_CERTIFICATE_VERIFY',
+    'MBEDTLS_SSL_CLIENT_CHANGE_CIPHER_SPEC',
+    'MBEDTLS_SSL_CLIENT_FINISHED',
+    'MBEDTLS_SSL_SERVER_CHANGE_CIPHER_SPEC',
+    'MBEDTLS_SSL_SERVER_FINISHED',
+    'MBEDTLS_SSL_FLUSH_BUFFERS',
+    'MBEDTLS_SSL_HANDSHAKE_WRAPUP',
+    'MBEDTLS_SSL_HANDSHAKE_OVER',
+    'MBEDTLS_SSL_SERVER_NEW_SESSION_TICKET',
+    'MBEDTLS_SSL_SERVER_HELLO_VERIFY_REQUEST_SENT',
+    'MBEDTLS_SSL_HELLO_RETRY_REQUEST',
+    'MBEDTLS_SSL_ENCRYPTED_EXTENSIONS',
+    'MBEDTLS_SSL_CLIENT_CERTIFICATE_VERIFY',
+    'MBEDTLS_SSL_CLIENT_CCS_AFTER_SERVER_FINISHED',
+    'MBEDTLS_SSL_CLIENT_CCS_BEFORE_2ND_CLIENT_HELLO',
+    'MBEDTLS_SSL_SERVER_CCS_AFTER_SERVER_HELLO',
+    'MBEDTLS_SSL_SERVER_CCS_AFTER_HELLO_RETRY_REQUEST'
+]
 
 class CAliasTable:
     """ Provides context to alias mapping """
     
     def __init__ (self):
         self.current_alias = 0
-        self.context_to_alias = {}
-        self.alias_to_context = {}
-        self.alias_description = {}
+        # This table is constantly refreshed by add/remove
+        self.context_alias_cache = {}
+        # This aliases in this table remain
+        self.alias_context_history = {}
 
     def base_add (self, key):
-        self.context_to_alias[key] = self.current_alias
-        self.alias_to_context[self.current_alias] = key
-        self.alias_description[self.current_alias] = "unknown"
+        self.context_alias_cache[key] = self.current_alias
+        self.alias_context_history[self.current_alias] = key
         self.current_alias = self.current_alias + 1
 
-    def add (self, pointer_string):
-        if pointer_string in self.context_to_alias:
-            raise Exception("Context already in use, cannot alias: %s" % pointer_string)
-        self.base_add(pointer_string)
+    def add (self, ctx):
+        if ctx in self.context_alias_cache:
+            raise Exception("Context already in use: %s" % ctx)
+        self.base_add(ctx)
 
-    def remove (self, pointer_string):
-        if pointer_string in self.context_to_alias:
-            del self.context_to_alias[pointer_string]
+    def remove (self, ctx):
+        if ctx in self.context_alias_cache:
+            del self.context_alias_cache[ctx]
         else:
-            print("Warning: freeing context without clone/init: %s" % pointer_string)
+            print("Warning: freeing context without clone/init: %s" % ctx)
 
-    def clone (self, source_pointer, dest_pointer):
-        #if dest_pointer in self.context_to_alias:
-        #    print("Warning: cloning existing context: %s into %s" % (source_pointer, dest_pointer))
-        #print("Cloning existing context: %s into %s" % (source_pointer, dest_pointer))
-        self.base_add(dest_pointer)
+    def clone (self, src, dst):
+        #print("Cloning existing context %s into %s" % (src, dst))
+        self.base_add(dst)
 
     def get_alias (self, context):
-        if context in self.context_to_alias:
-            return self.context_to_alias[context]
+        if context in self.context_alias_cache:
+            return self.context_alias_cache[context]
         return None
 
     def get_context (self, alias):
-        if alias in self.alias_to_context:
-            return self.alias_to_context[alias]
-        return None
-
-    def description (self, alias, description=None):
-        if description:
-            self.alias_description[alias] = description
-        elif alias in self.alias_description:
-            return self.alias_description[alias]
+        if alias in self.alias_context_history:
+            return self.alias_context_history[alias]
         return None
 
 # TODO: Need a "validate payload" function
@@ -93,6 +113,9 @@ class CParserLibrary:
     def parse(self, frame):
         stack_top = frame[0]
         function_name = stack_top[1]
+
+        # Attempt to find the function as a self attribute
+        function = None
         try:
             function = getattr(self, function_name)
             if function_name in self.seen_hooked:
@@ -100,7 +123,6 @@ class CParserLibrary:
             else:
                 self.seen_hooked[function_name] = 1
                 print("Hooked function '%s'" % function_name)
-            function(frame)
             #print(function_name)
         except AttributeError as e:
             if function_name in self.seen_missing:
@@ -110,6 +132,9 @@ class CParserLibrary:
                 print("No hook for '%s'" % function_name)
         except Exception as e:
             print("Some other error", function_name, e)
+    
+        if function:
+            function(frame)
 
     def is_self_nested (self, stack):
         #us = stack[0][1]
@@ -125,23 +150,6 @@ class CParserLibrary:
             except:
                 pass
         return nest
-    # Helper functions to make the code smaller
-
-    def helper_add_ctx(self, payload):
-        if payload['dir'] != 'enter':
-            return
-        ctx = payload['arg0']
-        self.trace_processor.aliases.add(ctx)
-
-    def helper_remove_ctx(self, payload):
-        if payload['dir'] != 'enter':
-            return
-        ctx = payload['arg0']
-        self.trace_processor.aliases.remove(ctx)
-
-    def client_state_dummy(self, stack):
-        state = stack[0][2]['state']
-        self.trace_processor.current_state = int(state)
 
     # AES ECB Functions
 
@@ -152,22 +160,6 @@ class CParserLibrary:
     def mbedtls_aes_free(self, stack):
         ctx = stack[0][2]['ctx']
         self.trace_processor.aliases.remove(ctx)
-
-    # mbedTLS 2.x
-    
-    def mbedtls_internal_aes_encrypt(self, stack):
-        ctx = stack[0][2]['ctx']
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        shorty = "aes/E"
-        self.trace_processor.post_event(stack, alias, 16, shorty)
-    
-    def mbedtls_internal_aes_decrypt(self, stack):
-        ctx = stack[0][2]['ctx']
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        shorty = "aes/D"
-        self.trace_processor.post_event(stack, alias, 16, shorty)
-
-    # mbedTLS 3.x
 
     def mbedtls_aes_crypt_ecb(self, stack):
         ctx = stack[0][2]['ctx']
@@ -200,22 +192,6 @@ class CParserLibrary:
     def mbedtls_ccm_free(self, stack):
         ctx = stack[0][2]['ctx']
         self.trace_processor.aliases.remove(ctx)
-
-    # mbedTLS 2.x
-
-    def mbedtls_ccm_star_encrypt_and_tag(self, stack):
-        ctx = stack[0][2]['ctx']
-        length = int(stack[0][2]['length'])
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        self.trace_processor.post_event(stack, alias, length, "ccm/E")
-
-    def mbedtls_ccm_star_auth_decrypt(self, stack):
-        ctx = stack[0][2]['ctx']
-        length = int(stack[0][2]['length'])
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        self.trace_processor.post_event(stack, alias, length, "ccm/D")
-
-    # mbedTLS 3.x
 
     def mbedtls_ccm_encrypt_and_tag(self, stack):
         ctx = stack[0][2]['ctx']
@@ -284,16 +260,6 @@ class CParserLibrary:
         alias = self.trace_processor.aliases.get_alias(ctx)
         self.trace_processor.post_event(stack, alias, 1, 'ecdsa/s')
 
-    def mbedtls_ecdsa_write_signature_det(self, payload):
-        # Ignore all SHAs that occur in read/write ECDSA
-        if payload['dir'] == 'enter':
-            self.block_sha = True
-            ctx = payload['arg0']
-            alias = self.trace_processor.aliases.get_alias(ctx)
-            self.trace_processor.post_event(stack, payload, alias, 1, 'ecdsa/s')
-        else:
-            self.block_sha = False
-
     def mbedtls_ecdsa_read_signature(self, stack):
         ctx = stack[0][2]['ctx']
         alias = self.trace_processor.aliases.get_alias(ctx)
@@ -322,21 +288,6 @@ class CParserLibrary:
         dst = stack[0][2]['dst']
         self.trace_processor.aliases.clone(src, dst)
 
-    # mbedTLS 2.x
-
-    def mbedtls_sha256_update_ret(self, stack):
-        ctx = stack[0][2]['ctx']
-        ilen = int(stack[0][2]['ilen'])
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        if alias is None:
-            raise Exception("Why is sha256 exception context missing %s" % ctx)
-        shortname = "sha256"
-        #if self.does_backtrace_contain_text('ecdsa', payload):
-        #    shortname += '.ecdsa'
-        self.trace_processor.post_event(stack, alias, ilen, shortname)
-
-    # mbedTLS 3.x
-    
     def mbedtls_sha256_update(self, stack):
         ctx = stack[0][2]['ctx']
         ilen = int(stack[0][2]['ilen'])
@@ -365,17 +316,6 @@ class CParserLibrary:
         dst = payload['arg1']
         self.trace_processor.aliases.clone(src, dst)
 
-    # mbedTLS 2.x
-
-    def mbedtls_sha512_update_ret(self, stack):
-        ctx = stack[0][2]['ctx']
-        ilen = int(stack[0][2]['ilen'])
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        shortname = "sha512"
-        #if self.does_backtrace_contain_text('ecdsa', payload):
-        #    shortname += '.ecdsa'
-        self.trace_processor.post_event(stack, alias, ilen, shortname)
-
     # mbedTLS 3.x
     
     def mbedtls_sha512_update(self, stack):
@@ -388,54 +328,6 @@ class CParserLibrary:
         self.trace_processor.post_event(stack, alias, ilen, shortname)
 
     # Other important high-level functions
-
-    # Just here as attributes for nesting naming
-    def mbedtls_ctr_drbg_seed(self, stack):
-        pass
-
-    def mbedtls_ctr_drbg_random(self, stack):
-        pass
-
-    def ssl_update_checksum_sha256(self, stack):
-        pass
-
-    def ssl_update_checksum_start(self, stack):
-        pass
-
-    def mbedtls_hkdf_extract(self, stack):
-        pass
-
-    def mbedtls_hkdf_expand(self, stack):
-        pass
-
-    def mbedtls_md(self, stack):
-        pass
-
-    def mbedtls_md_hmac(self, stack):
-        pass
-
-    def mbedtls_md_hmac_update(self, stack):
-        pass
-
-    def mbedtls_md_hmac_finish(self, stack):
-        pass
-
-    def ecp_drbg_random(self, stack):
-        pass
-
-    def ecp_drbg_seed(self, stack):
-        pass
-
-    def ssl_calc_verify_tls_sha256(self, stack):
-        pass
-
-    def mbedtls_ecdsa_write_signature_restartable(self, stack):
-        pass
-
-    def ecdsa_sign_det_restartable(self, stack):
-        pass
-
-    # mbedTLS 3.x
 
     def psa_hkdf_input(self, stack):
         pass
@@ -469,11 +361,24 @@ class CTraceProcessor:
             self.parsers.parse(self.current_stack)
 
     def process_line(self, text):
+        if not text:
+            return
+
+        # This is the "print ssl->state" command in the GDB script.
+        if text[0] == '$':
+            parts = re.split(r'[\s=]+', text)
+            self.current_state = int(parts[1])
+            return
+
+        # After this point we only care about backtraces
+        if text[0] != '#':
+            return
+
         # Remove really long quotes that screw up the splitter
         # Fortunately GDB hex-escapes embedded quotes!
         text = re.sub(r'".*?"', '', text)
-        if text and text[0] != '#':
-            return
+
+        # Assemble the call stack for each `rbreak` expression
         parts = re.split(r'[#\s\(\),]', text)
         if len(parts) < 3:
             return
@@ -492,19 +397,21 @@ class CTraceProcessor:
             #print(self.current_stack)
             self.current_stack = []
 
+        # Since we process-then-assemble, check for tail condition (above)
         self.current_stack.append([ depth, fname, argv])
 
     def post_event (self, stack, alias, n, tag):
         """ Add an event to the scoreboard, incrementing its 'n' value. """
         
+        # Only post events to states we care about (see handshake_states)
         if self.current_state in handshake_states:
             pass
         else:
-            print("Ignoring event outside handshake (state=%d)" % self.current_state)
+            if self.current_state >= 0:
+                print("Ignoring handshake state %d" % self.current_state)
             return
             
         nest = self.parsers.is_self_nested(stack)
-        self.aliases.description(alias, tag)
         if alias is None:
             raise Exception("Alias is none")
         if alias not in self.scoreboard:
@@ -533,16 +440,25 @@ class CTraceProcessor:
         slot[name_nest][self.current_state]['bt'].append(stack)
 
 def main ():
+    detail = None
+
     if len(sys.argv) < 2:
         raise Exception("Please specify the input file to process.")
-    trace_processor = CTraceProcessor()
-    trace_processor.process_file(sys.argv[1])
 
-    detail = None
     if len(sys.argv) == 3:
         detail = sys.argv[2]
 
-    print("\nResults Table\n")
+    trace_processor = CTraceProcessor()
+    trace_processor.process_file(sys.argv[1])
+
+    print()
+    print("Results Table")
+    print("-------------")
+    print()
+    print("NOTE: Only these mbedTLS state codes are counted:")
+    for state in handshake_states:
+        print(" . % 2s %s" % (state, mbedtls3_state_names[state]))
+    print()
 
     print("% 5s,  %- 55s,% 15s:," % ("alias", "type", "context"), end="")
     for i in handshake_states:
@@ -572,8 +488,8 @@ def main ():
                                 print('\t\t', i, subcall)
                             print()
 
-    for ctx in trace_processor.aliases.context_to_alias:
-        print("Warning: the context '%s' used by alias '%s' was not freed:" % (ctx, trace_processor.aliases.context_to_alias[ctx]))
+    for ctx in trace_processor.aliases.context_alias_cache:
+        print("Warning: the context '%s' used by alias '%s' was not freed:" % (ctx, trace_processor.aliases.context_alias_cache[ctx]))
 
 if __name__ == '__main__':
     main()
