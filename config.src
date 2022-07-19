@@ -1,0 +1,50 @@
+
+# This is the base config required to work with our requirements
+
+../scripts/config.py unset-all MBEDTLS
+../scripts/config.py set MBEDTLS_SSL_TLS_C
+../scripts/config.py set MBEDTLS_SSL_PROTO_TLS1_3
+../scripts/config.py set MBEDTLS_SSL_KEEP_PEER_CERTIFICATE
+../scripts/config.py set MBEDTLS_HKDF_C
+../scripts/config.py set MBEDTLS_SHA256_C
+../scripts/config.py set MBEDTLS_SHA224_C
+../scripts/config.py set MBEDTLS_MD_C
+../scripts/config.py set MBEDTLS_PSA_CRYPTO_C
+../scripts/config.py set MBEDTLS_HMAC_DRBG_C
+../scripts/config.py set MBEDTLS_ENTROPY_C
+../scripts/config.py set MBEDTLS_CIPHER_C
+../scripts/config.py set MBEDTLS_AES_C
+../scripts/config.py set MBEDTLS_SSL_CLI_C
+../scripts/config.py set MBEDTLS_SSL_PROTO_TLS1_2
+../scripts/config.py set MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA_ENABLED
+../scripts/config.py set MBEDTLS_ECDH_C
+../scripts/config.py set MBEDTLS_ECDSA_C
+../scripts/config.py set MBEDTLS_ECDSA_DETERMINISTIC
+../scripts/config.py set MBEDTLS_X509_CRT_PARSE_C
+../scripts/config.py set MBEDTLS_ECP_C
+../scripts/config.py set MBEDTLS_BIGNUM_C
+../scripts/config.py set MBEDTLS_ECP_DP_SECP256R1_ENABLED
+../scripts/config.py set MBEDTLS_ECP_DP_SECP384R1_ENABLED
+../scripts/config.py set MBEDTLS_ASN1_PARSE_C
+../scripts/config.py set MBEDTLS_ASN1_WRITE_C
+../scripts/config.py set MBEDTLS_X509_USE_C
+../scripts/config.py set MBEDTLS_OID_C
+../scripts/config.py set MBEDTLS_PK_PARSE_C
+../scripts/config.py set MBEDTLS_PK_C
+../scripts/config.py set MBEDTLS_NET_C
+../scripts/config.py set MBEDTLS_SSL_SRV_C
+
+# Include this for medium
+
+#../scripts/config.py set MBEDTLS_CCM_C
+#../scripts/config.py unset MBEDTLS_GCM_C
+#../scripts/config.py unset MBEDTLS_SHA384_C
+#../scripts/config.py unset MBEDTLS_SHA512_C
+
+# Include this for high
+
+../scripts/config.py unset MBEDTLS_CCM_C
+../scripts/config.py set MBEDTLS_GCM_C
+../scripts/config.py set MBEDTLS_SHA384_C
+../scripts/config.py set MBEDTLS_SHA512_C
+

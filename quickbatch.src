@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+if [[ "$1" == "" ]] ; then
+    echo "Missing prefix"
+    exit -1
+fi
+
+prefix=$1
+
+LOG=$prefix.log
+TABLE=$prefix.table
+SUM=$prefix.sum
+
+gdb -command=command_high.gdb ./ssl/ssl_client2 > $LOG
+./process_gdb_trace-mbed3.py $LOG > $TABLE
+./sum_crosscheck.pl $TABLE > $SUM
+
+

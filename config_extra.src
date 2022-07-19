@@ -1,0 +1,102 @@
+
+# These are values that Hannes set in 2.4.2 but I don't fully understand
+
+# This setting causes the base config handshake to drop by 4KB
+
+    ../scripts/config.py set MBEDTLS_CTR_DRBG_C
+
+# We set tickets to zero, so why even compile this?
+
+    ../scripts/config.py set MBEDTLS_SSL_TICKET_C
+
+# Unsure of these
+
+    ../scripts/config.py set MBEDTLS_SSL_ALL_ALERT_MESSAGES
+    ../scripts/config.py set MBEDTLS_SSL_COOKIE_C
+    ../scripts/config.py set MBEDTLS_SSL_COOKIE_TIMEOUT 60
+    ../scripts/config.py set MBEDTLS_SSL_SERVER_NAME_INDICATION
+    ../scripts/config.py set MBEDTLS_KEY_EXCHANGE_PSK_ENABLED
+    ../scripts/config.py set MBEDTLS_MPI_MAX_SIZE 1024
+    ../scripts/config.py set MBEDTLS_MPI_WINDOW_SIZE 6
+    ../scripts/config.py set MBEDTLS_PKCS12_C
+    ../scripts/config.py set MBEDTLS_PKCS1_V15
+    ../scripts/config.py set MBEDTLS_PKCS1_V21
+    ../scripts/config.py set MBEDTLS_PKCS5_C
+    ../scripts/config.py set MBEDTLS_PK_WRITE_C
+    ../scripts/config.py set MBEDTLS_PSK_MAX_LEN 48
+    ../scripts/config.py set MBEDTLS_TIMING_C
+
+# Probably good to have this?
+
+    ../scripts/config.py set MBEDTLS_PK_PARSE_EC_EXTENDED
+
+# We're not writing RSA keys
+
+    ../scripts/config.py set MBEDTLS_PK_RSA_ALT_SUPPORT
+
+    ../scripts/config.py set MBEDTLS_CIPHER_PADDING_PKCS7
+    ../scripts/config.py set MBEDTLS_CIPHER_PADDING_ZEROS
+    ../scripts/config.py set MBEDTLS_CIPHER_PADDING_ZEROS_AND_LEN
+    ../scripts/config.py set MBEDTLS_CIPHER_PADDING_ONE_AND_ZEROS
+
+# Not in 3.2.1 but set in 2.4.2 config`
+
+#    ../scripts/config.py set MBEDTLS_CONFIG_H
+#    ../scripts/config.py set _CRT_SECURE_NO_DEPRECATE 1
+#    ../scripts/config.py set MBEDTLS_ECDH_LEGACY_CONTEXT
+#    ../scripts/config.py set MBEDTLS_REMOVE_3DES_CIPHERSUITES
+#    ../scripts/config.py set MBEDTLS_REMOVE_ARC4_CIPHERSUITES
+#    ../scripts/config.py set MBEDTLS_SSL_MAX_KEY_SHARES 1
+#    ../scripts/config.py set MBEDTLS_SSL_DEFAULT_TICKET_LIFETIME 86400
+#    ../scripts/config.py set MBEDTLS_SSL_TICKET_AGE_TOLERANCE 6000
+#    ../scripts/config.py set MBEDTLS_SSL_TICKET_NONCE_LENGTH 32
+#    ../scripts/config.py set MBEDTLS_SSL_NEW_SESSION_TICKET
+#    ../scripts/config.py set MBEDTLS_SSL_PROTO_TLS1_3_EXPERIMENTAL
+#    ../scripts/config.py set MBEDTLS_PSK_IDENTITY_MAX_LEN 250
+#    ../scripts/config.py set MBEDTLS_X509_CHECK_EXTENDED_KEY_USAGE
+#    ../scripts/config.py set MBEDTLS_X509_CHECK_KEY_USAGE
+
+    ../scripts/config.py set MBEDTLS_ECP_FIXED_POINT_OPTIM 1
+    ../scripts/config.py set MBEDTLS_ECP_WINDOW_SIZE 7
+    ../scripts/config.py set MBEDTLS_ECP_NIST_OPTIM
+
+    ../scripts/config.py set MBEDTLS_HAVE_TIME
+    ../scripts/config.py set MBEDTLS_HAVE_TIME_DATE
+
+# Not tested
+
+    ../scripts/config.py set MBEDTLS_SELF_TEST
+    ../scripts/config.py set MBEDTLS_VERSION_C
+    ../scripts/config.py set MBEDTLS_VERSION_FEATURES
+
+# Debug hooks
+
+    ../scripts/config.py set MBEDTLS_ERROR_C
+    ../scripts/config.py set MBEDTLS_ERROR_STRERROR_DUMMY
+
+# We aren't creating keys, why do we need primes?
+
+    ../scripts/config.py set MBEDTLS_GENPRIME
+
+# We don't use PEMs in our test environment
+ 
+    ../scripts/config.py set MBEDTLS_BASE64_C
+    ../scripts/config.py set MBEDTLS_PEM_PARSE_C
+    ../scripts/config.py set MBEDTLS_PEM_WRITE_C
+
+# We don't need filesystem access
+
+    ../scripts/config.py set MBEDTLS_FS_IO
+
+# We don't need to retarget libc functions
+
+    ../scripts/config.py set MBEDTLS_PLATFORM_C
+
+# We aren't creating certificates or requests
+
+    ../scripts/config.py set MBEDTLS_X509_CREATE_C
+    ../scripts/config.py set MBEDTLS_X509_CRL_PARSE_C
+    ../scripts/config.py set MBEDTLS_X509_CRT_WRITE_C
+    ../scripts/config.py set MBEDTLS_X509_CSR_PARSE_C
+    ../scripts/config.py set MBEDTLS_X509_CSR_WRITE_C
+
