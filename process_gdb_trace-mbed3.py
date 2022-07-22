@@ -371,6 +371,11 @@ class CTraceProcessor:
 
         # This is the "print ssl->state" command in the GDB script.
         if text[0] == '$':
+            # If the state is changing, purge the current stack,
+            # otherwise it will be charged to the wrong state.
+            if len(self.current_stack) > 0:
+                self.parsers.parse(self.current_stack)
+                self.current_stack = []
             parts = re.split(r'[\s=]+', text)
             self.current_state = int(parts[1])
             return
