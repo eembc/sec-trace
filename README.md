@@ -1,7 +1,7 @@
 # Introduction
 
 This repo contains tools for profiling the cryptographic compute load for
-a TLS handshake using mbedTLS. We use three different crypto strengths:
+a TLS handshake using mbedTLS 3.2.x. We use three different crypto strengths:
 
 * High:  TLS1-3-AES-256-GCM-SHA384 on curve secp384r1
 * Medium:  TLS1-3-AES-128-CCM-SHA256 on curve secp256r1

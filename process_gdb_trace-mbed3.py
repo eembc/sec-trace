@@ -30,7 +30,7 @@ import argparse
 # MBEDTLS_SSL_CLIENT_CHANGE_CIPHER_SPEC     10
 # MBEDTLS_SSL_SERVER_CHANGE_CIPHER_SPEC     12
 # MBEDTLS_SSL_HANDSHAKE_OVER                16
-handshake_states = [0, 1, 2, 20, 5, 3, 9, 13, 7, 21, 11, 15]
+handshake_states = [-1, 0, 1, 2, 20, 5, 3, 9, 13, 7, 21, 11, 15]
 # Take from `ssl.h`
 mbedtls3_state_names = [
     'MBEDTLS_SSL_HELLO_REQUEST',
@@ -346,6 +346,10 @@ class CParserLibrary:
         pass
     def mbedtls_md():
         pass
+    def mbedtls_ctr_drbg_seed():
+        pass
+    def mbedtls_ctr_drbg_random():
+        pass
 
 class CTraceProcessor:
     """ Processes an mbedTLS TRACE file. """
@@ -412,13 +416,12 @@ class CTraceProcessor:
 
     def post_event (self, stack, alias, n, tag):
         """ Add an event to the scoreboard, incrementing its 'n' value. """
-        
+
         # Only post events to states we care about (see handshake_states)
         if self.current_state in handshake_states:
             pass
         else:
-            if self.current_state >= 0:
-                print("Ignoring handshake state %d" % self.current_state)
+            print("Ignoring handshake state %d" % self.current_state)
             return
             
         nest = self.parsers.is_self_nested(stack)
@@ -467,7 +470,10 @@ def main ():
     print()
     print("NOTE: Only these mbedTLS state codes are counted:")
     for state in handshake_states:
-        print(" . % 2s %s" % (state, mbedtls3_state_names[state]))
+        if state < 0:
+            print(" . % 2s %s" % (state, "PRE-HANDSHAKE"))
+        else:
+            print(" . % 2s %s" % (state, mbedtls3_state_names[state]))
     print()
 
     print("% 5s,  %- 55s,% 15s:," % ("alias", "type", "context"), end="")
