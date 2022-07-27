@@ -17,55 +17,22 @@ First clone mbedTLS:
 % git clone git@github.com:Mbed-TLS/mbedtls
 ```
 
-Start by completely clearing out the mbedTLS config file, then slowly add
-things back in. Switch to the `scripts` folder and run these commands:
+Then prepare a make area:
 
 ```bash
-./config.py unset-all MBEDTLS
-./config.py set MBEDTLS_SSL_TLS_C
-./config.py set MBEDTLS_SSL_PROTO_TLS1_3
-./config.py set MBEDTLS_SSL_KEEP_PEER_CERTIFICATE
-./config.py set MBEDTLS_HKDF_C
-./config.py set MBEDTLS_SHA256_C
-./config.py set MBEDTLS_SHA224_C
-./config.py set MBEDTLS_MD_C
-./config.py set MBEDTLS_PSA_CRYPTO_C
-./config.py set MBEDTLS_HMAC_DRBG_C
-./config.py set MBEDTLS_ENTROPY_C
-./config.py set MBEDTLS_CIPHER_C
-./config.py set MBEDTLS_AES_C
-./config.py set MBEDTLS_SSL_CLI_C
-./config.py set MBEDTLS_SSL_PROTO_TLS1_2
-./config.py set MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA_ENABLED
-./config.py set MBEDTLS_ECDH_C
-./config.py set MBEDTLS_ECDSA_C
-./config.py set MBEDTLS_ECDSA_DETERMINISTIC
-./config.py set MBEDTLS_X509_CRT_PARSE_C
-./config.py set MBEDTLS_ECP_C
-./config.py set MBEDTLS_BIGNUM_C
-./config.py set MBEDTLS_ECP_DP_SECP256R1_ENABLED
-./config.py set MBEDTLS_ECP_DP_SECP384R1_ENABLED
-./config.py set MBEDTLS_ASN1_PARSE_C
-./config.py set MBEDTLS_ASN1_WRITE_C
-./config.py set MBEDTLS_X509_USE_C
-./config.py set MBEDTLS_OID_C
-./config.py set MBEDTLS_PK_PARSE_C
-./config.py set MBEDTLS_PK_C
-./config.py set MBEDTLS_NET_C
-./config.py set MBEDTLS_SSL_SRV_C
-
-# For medium only
-./config.py set MBEDTLS_CCM_C
-./config.py unset MBEDTLS_GCM_C
-./config.py unset MBEDTLS_SHA384_C
-./config.py unset MBEDTLS_SHA512_C
-
-# For high only
-./config.py unset MBEDTLS_CCM_C
-./config.py set MBEDTLS_GCM_C
-./config.py set MBEDTLS_SHA384_C
-./config.py set MBEDTLS_SHA512_C
+% mkdir build
+% cd build
+% cmake .. -DENABLE_TESTING=OFF
 ```
+
+Now source one of the `config_(high|medium).src` files followed by `config_extra.src`.
+
+```Bash
+% source **path to sec-trace repo**/config_medium.src
+% source **path to sec-trace repo**/config_extra.src
+```
+
+## Notes on configuration
 
 Questions: Should we configure for CTR or HMAC DRBG? (We have a choice)
 
@@ -89,9 +56,6 @@ From within the `mbedtls` repository:
 
 ```bash
 % export CFLAGS="-g -O0 -fcf-protection=none"
-% mkdir build
-% cd build
-% cmake .. -DENABLE_TESTING=OFF
 % make
 ```
 
@@ -103,6 +67,7 @@ scripts call `ssl/ssl_client2` and `ssl/ssl_server2`.
 From within this repository:
 
 ```bash
+% cd **this repository**
 % ln -s $MBEDTLSREPO/build/programs/ssl .
 ```
 
@@ -207,33 +172,3 @@ which handshake stage the occur in (all are in 21: CLIENT_CERTIFICATE_VERIFY).
 The folder `data/` contains results collected on an Ubuntu 20 machine running
 mbedTLS 3.2.1. The log contains the raw traces. The table are the final
 results.
-
-
-# Adding in more config
-
-Studies done with "high" crypto.
-
-TIMING_C - timing module but added 66 bytes
-MBEDTLS_CTR_DRBG_C - significantly reduced 
-
-HMAC_DRBG
-
-grep ecp data/table_high.txt
-00002,  sha512 (in ecp_mul_comb_after_precomp)                 ,  0x5555555d52a0,      ,      ,  1153,      ,      ,      ,      ,      ,      ,      ,      ,      ,
-00002,  sha512 (in ecp_mul_comb_core)                          ,  0x5555555d52a0,      ,      ,   769,      ,      ,      ,      ,      ,      ,      ,      ,      ,
-00002,  sha512 (in ecp_mul_comb)                               ,  0x5555555d52a0,      ,      ,   384,      ,      ,      ,      ,      ,      ,      ,      ,      ,
-00009,  sha256 (in ecp_mul_comb_core)                          ,  0x5555555d64a0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   192,      ,      ,
-00009,  sha256 (in ecp_randomize_jac)                          ,  0x5555555d64a0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   770,      ,      ,
-00009,  sha256 (in ecp_mul_comb_after_precomp)                 ,  0x5555555d64a0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   192,      ,      ,
-00009,  sha256 (in mbedtls_ecp_gen_privkey)                    ,  0x5555555d64a0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   192,      ,      ,
-00009,  sha256 (in mbedtls_ecp_gen_privkey_sw)                 ,  0x5555555d64a0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   385,      ,      ,
-00105,  sha256 (in mbedtls_ecp_gen_privkey)                    ,  0x5555555e0dc0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   577,      ,      ,
-
-Plus CTR_DRBG
-
-grep ecp l3
-00002,  ecb/E (in ecp_mul_comb)                                ,  0x5555555d29c8,      ,      ,   192,      ,      ,      ,      ,      ,      ,      ,      ,      ,
-00007,  ecb/E (in ecp_mul_comb)                                ,  0x7fffffff8fe0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   112,      ,      ,
-00007,  ecb/E (in ecp_mul_comb_after_precomp)                  ,  0x7fffffff8fe0,      ,      ,      ,      ,      ,      ,      ,      ,      ,    48,      ,      ,
-00007,  ecb/E (in mbedtls_ecp_gen_privkey)                     ,  0x7fffffff8fe0,      ,      ,      ,      ,      ,      ,      ,      ,      ,    80,      ,      ,
-00101,  sha256 (in mbedtls_ecp_gen_privkey)                    ,  0x5555555e1ac0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   577,      ,      ,
