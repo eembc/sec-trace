@@ -390,17 +390,18 @@ class CTraceProcessor:
 
         # Remove really long quotes that screw up the splitter
         # Fortunately GDB hex-escapes embedded quotes!
-        text = re.sub(r'".*?"', '', text)
+        #text = re.sub(r'".*?"', '', text)
 
         # Assemble the call stack for each `rbreak` expression
-        parts = re.split(r'[#\s\(\),]', text)
+        parts = re.split(r'[#\s\(\),]+', text)
+
         if len(parts) < 3:
             return
         depth = int(parts[1])
         if depth == 0:
-            fname = parts[3]
+            fname = parts[2]
         else:
-            fname = parts[5]
+            fname = parts[4]
         argv = {}
         for part in parts:
             arg = re.split('=', part)
