@@ -67,6 +67,9 @@ things back in. Switch to the `scripts` folder and run these commands:
 ./config.py set MBEDTLS_SHA512_C
 ```
 
+Also included is a an config_extra.src file, which is everything that was
+in the original mbedTLS 2.24 study that we did. Only one had a huge impact:
+
 Questions: Should we configure for CTR or HMAC DRBG? (We have a choice)
 
 Note: For some reason both secp256r1 and secp384r1 curves are requried which
