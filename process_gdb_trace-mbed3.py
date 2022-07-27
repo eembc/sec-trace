@@ -30,7 +30,7 @@ import argparse
 # MBEDTLS_SSL_CLIENT_CHANGE_CIPHER_SPEC     10
 # MBEDTLS_SSL_SERVER_CHANGE_CIPHER_SPEC     12
 # MBEDTLS_SSL_HANDSHAKE_OVER                16
-handshake_states = [-1, 0, 1, 2, 20, 5, 3, 9, 13, 7, 21, 11, 15]
+handshake_states = [-1, 2, 20, 5, 3, 9, 13, 7, 21, 11, 14, 15]
 # Take from `ssl.h`
 mbedtls3_state_names = [
     'MBEDTLS_SSL_HELLO_REQUEST',
