@@ -36,15 +36,8 @@
 
 # Include this for medium
 
-#../scripts/config.py set MBEDTLS_CCM_C
-#../scripts/config.py unset MBEDTLS_GCM_C
-#../scripts/config.py unset MBEDTLS_SHA384_C
-#../scripts/config.py unset MBEDTLS_SHA512_C
-
-# Include this for high
-
-../scripts/config.py unset MBEDTLS_CCM_C
-../scripts/config.py set MBEDTLS_GCM_C
-../scripts/config.py set MBEDTLS_SHA384_C
-../scripts/config.py set MBEDTLS_SHA512_C
+../scripts/config.py set MBEDTLS_CCM_C
+../scripts/config.py unset MBEDTLS_GCM_C
+../scripts/config.py unset MBEDTLS_SHA384_C
+../scripts/config.py unset MBEDTLS_SHA512_C
 
