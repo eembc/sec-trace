@@ -350,6 +350,16 @@ class CParserLibrary:
         pass
     def mbedtls_ctr_drbg_random():
         pass
+    def mbedtls_ssl_tls13_evolve_secret():
+        pass
+    def mbedtls_ssl_tls13_derive_secret():
+        pass
+    def mbedtls_ssl_tls13_make_traffic_keys():
+        pass
+    def mbedtls_ssl_tls13_generate_and_write_ecdh_key_exchange():
+        pass
+    #def mbedtls_ssl_tls13_process_certificate_verify():
+    #    pass
 
 class CTraceProcessor:
     """ Processes an mbedTLS TRACE file. """
@@ -434,7 +444,12 @@ class CTraceProcessor:
 
         # Slot needs to have depth
         if nest is not None:
-            name_nest = "%s (in %s)" % (tag, nest)
+            shortnest = nest
+            if len(shortnest) > 35:
+                front = shortnest[0:17]
+                back = shortnest[-17:]
+                shortnest = front + '...' + back
+            name_nest = "%s (in %s)" % (tag, shortnest)
         else:
             name_nest = tag 
 
@@ -502,7 +517,10 @@ def main ():
                     if i in trace_processor.scoreboard[alias][name_nest]:
                         for call in trace_processor.scoreboard[alias][name_nest][i]['bt']:
                             for subcall in call:
-                                print('\t\t', i, subcall)
+                                if subcall[0] == 0:
+                                    print('\t\t%03d # %02d - %s' % (i, subcall[0], subcall[1]), subcall[2:])
+                                else:
+                                    print('\t\t%03d # %02d - %s' % (i, subcall[0], subcall[1]))
                             print()
 
     for ctx in trace_processor.aliases.context_alias_cache:
