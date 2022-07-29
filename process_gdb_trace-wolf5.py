@@ -163,6 +163,18 @@ class CParserLibrary:
         alias = self.trace_processor.aliases.get_alias(ctx)
         self.trace_processor.post_event(stack, alias, n, "gcm/D")
 
+    def wc_AesCcmEncrypt(self, stack):
+        ctx = stack[0][2]['aes']
+        n = int(stack[0][2]['inSz'])
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, n, "ccm/E")
+
+    def wc_AesCcmDecrypt(self, stack):
+        ctx = stack[0][2]['aes']
+        n = int(stack[0][2]['inSz'])
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, n, "ccm/D")
+
     def wc_AesInit(self, stack):
         ctx = stack[0][2]['aes']
         self.trace_processor.aliases.add(ctx)
@@ -290,7 +302,7 @@ class CParserLibrary:
     
     def DeriveHandshakeSecret():
         pass
-    
+
     def ConfirmSignature():
         pass
 
