@@ -9,57 +9,54 @@ import re
 import pprint
 import argparse
 
-# MbedTLS Handshake V3.x
-# MBEDTLS_SSL_HELLO_REQUEST                  0
-# MBEDTLS_SSL_CLIENT_HELLO                   1
-# MBEDTLS_SSL_SERVER_HELLO                   2
-# MBEDTLS_SSL_ENCRYPTED_EXTENSIONS          20
-# MBEDTLS_SSL_CERTIFICATE_REQUEST            5
-# MBEDTLS_SSL_SERVER_CERTIFICATE             3
-# MBEDTLS_SSL_CERTIFICATE_VERIFY             9
-# MBEDTLS_SSL_SERVER_FINISHED               13
-# MBEDTLS_SSL_CLIENT_CERTIFICATE             7
-# MBEDTLS_SSL_CLIENT_CERTIFICATE_VERIFY     21
-# MBEDTLS_SSL_CLIENT_FINISHED               11
-# MBEDTLS_SSL_FLUSH_BUFFERS                 14 * PJT Dropped this, never seen it
-# MBEDTLS_SSL_HANDSHAKE_WRAPUP              15
-# Unused
-# MBEDTLS_SSL_SERVER_KEY_EXCHANGE            4
-# MBEDTLS_SSL_SERVER_HELLO_DONE              6
-# MBEDTLS_SSL_CLIENT_KEY_EXCHANGE            8
-# MBEDTLS_SSL_CLIENT_CHANGE_CIPHER_SPEC     10
-# MBEDTLS_SSL_SERVER_CHANGE_CIPHER_SPEC     12
-# MBEDTLS_SSL_HANDSHAKE_OVER                16
-handshake_states = [-1, 2, 20, 5, 3, 9, 13, 7, 21, 11, 14, 15]
-# Take from `ssl.h`
-mbedtls3_state_names = [
-    'MBEDTLS_SSL_HELLO_REQUEST',
-    'MBEDTLS_SSL_CLIENT_HELLO',
-    'MBEDTLS_SSL_SERVER_HELLO',
-    'MBEDTLS_SSL_SERVER_CERTIFICATE',
-    'MBEDTLS_SSL_SERVER_KEY_EXCHANGE',
-    'MBEDTLS_SSL_CERTIFICATE_REQUEST',
-    'MBEDTLS_SSL_SERVER_HELLO_DONE',
-    'MBEDTLS_SSL_CLIENT_CERTIFICATE',
-    'MBEDTLS_SSL_CLIENT_KEY_EXCHANGE',
-    'MBEDTLS_SSL_CERTIFICATE_VERIFY',
-    'MBEDTLS_SSL_CLIENT_CHANGE_CIPHER_SPEC',
-    'MBEDTLS_SSL_CLIENT_FINISHED',
-    'MBEDTLS_SSL_SERVER_CHANGE_CIPHER_SPEC',
-    'MBEDTLS_SSL_SERVER_FINISHED',
-    'MBEDTLS_SSL_FLUSH_BUFFERS',
-    'MBEDTLS_SSL_HANDSHAKE_WRAPUP',
-    'MBEDTLS_SSL_HANDSHAKE_OVER',
-    'MBEDTLS_SSL_SERVER_NEW_SESSION_TICKET',
-    'MBEDTLS_SSL_SERVER_HELLO_VERIFY_REQUEST_SENT',
-    'MBEDTLS_SSL_HELLO_RETRY_REQUEST',
-    'MBEDTLS_SSL_ENCRYPTED_EXTENSIONS',
-    'MBEDTLS_SSL_CLIENT_CERTIFICATE_VERIFY',
-    'MBEDTLS_SSL_CLIENT_CCS_AFTER_SERVER_FINISHED',
-    'MBEDTLS_SSL_CLIENT_CCS_BEFORE_2ND_CLIENT_HELLO',
-    'MBEDTLS_SSL_SERVER_CCS_AFTER_SERVER_HELLO',
-    'MBEDTLS_SSL_SERVER_CCS_AFTER_HELLO_RETRY_REQUEST'
-]
+# enum HandShakeType {#
+#     hello_request           0,#
+#     client_hello            1,#
+#     server_hello            2,#
+#     hello_verify_request    3,    /* DTLS addition */#
+#     session_ticket          4,#
+#     end_of_early_data       5,#
+#     hello_retry_request     6,#
+#     encrypted_extensions    8,#
+#     certificate            11,#
+#     server_key_exchange    12,#
+#     certificate_request    13,#
+#     server_hello_done      14,#
+#     certificate_verify     15,#
+#     client_key_exchange    16,#
+#     finished               20,#
+#     certificate_status     22,#
+#     key_update             24,#
+#     change_cipher_hs       55,    /* simulate unique handshake type for sanity#
+#                                       checks.  record layer change_cipher#
+#                                       conflicts with handshake finished */#
+#     message_hash         = 254,    /* synthetic message type for TLS v1.3 */#
+#     no_shake             = 255     /* used to initialize the DtlsMsg record */#
+# };#
+handshake_states = [-1, 0, 2, 8, 13, 11, 15, 20]
+
+wolf_state_names = {
+     0: 'hello_request',
+     1: 'client_hello',
+     2: 'server_hello',
+     3: 'hello_verify_request',
+     4: 'session_ticket',
+     5: 'end_of_early_data',
+     6: 'hello_retry_request',
+     8: 'encrypted_extensions',
+    11: 'certificate',
+    12: 'server_key_exchange',
+    13: 'certificate_request',
+    14: 'server_hello_done',
+    15: 'certificate_verify',
+    16: 'client_key_exchange',
+    20: 'finished',
+    22: 'certificate_status',
+    24: 'key_update',
+    55: 'change_cipher_hs',
+    254: 'message_hash',
+    255: 'no_shake'
+}
 
 class CAliasTable:
     """ Provides context to alias mapping """
@@ -153,215 +150,152 @@ class CParserLibrary:
                 nest = name
         return nest
 
+
+    def wc_AesGcmEncrypt(self, stack):
+        ctx = stack[0][2]['aes']
+        n = int(stack[0][2]['sz'])
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, n, "gcm/E")
+
+    def wc_AesGcmDecrypt(self, stack):
+        ctx = stack[0][2]['aes']
+        n = int(stack[0][2]['sz'])
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, n, "gcm/D")
+
+    def wc_AesInit(self, stack):
+        ctx = stack[0][2]['aes']
+        self.trace_processor.aliases.add(ctx)
+
+    def wc_AesFree(self, stack):
+        ctx = stack[0][2]['aes']
+        self.trace_processor.aliases.remove(ctx)
+
     # AES ECB Functions
-
-    def mbedtls_aes_init(self, stack):
-        ctx = stack[0][2]['ctx']
-        self.trace_processor.aliases.add(ctx)
-
-    def mbedtls_aes_free(self, stack):
-        ctx = stack[0][2]['ctx']
-        self.trace_processor.aliases.remove(ctx)
-
-    def mbedtls_aes_crypt_ecb(self, stack):
-        ctx = stack[0][2]['ctx']
-        mode = int(stack[0][2]['mode'])
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        if mode == 1:
-            mode = "E"
-        else:
-            mode = "D"
-        shorty = "ecb/%s" % mode
-        self.trace_processor.post_event(stack, alias, 16, shorty) 
-
-    def mbedtls_aesni_crypt_ecb(self, stack):
-        ctx = stack[0][2]['ctx']
-        mode = int(stack[0][2]['mode'])
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        if mode == 1:
-            mode = "E"
-        else:
-            mode = "D"
-        shorty = "ecb/%s" % mode
-        self.trace_processor.post_event(stack, alias, 16, shorty) 
-
-    # AES/CCM functions
-
-    def mbedtls_ccm_init(self, stack):
-        ctx = stack[0][2]['ctx']
-        self.trace_processor.aliases.add(ctx)
-
-    def mbedtls_ccm_free(self, stack):
-        ctx = stack[0][2]['ctx']
-        self.trace_processor.aliases.remove(ctx)
-
-    def mbedtls_ccm_encrypt_and_tag(self, stack):
-        ctx = stack[0][2]['ctx']
-        length = int(stack[0][2]['length'])
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        self.trace_processor.post_event(stack, alias, length, "ccm/E")
-
-    def mbedtls_ccm_auth_decrypt(self, stack):
-        ctx = stack[0][2]['ctx']
-        length = int(stack[0][2]['length'])
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        self.trace_processor.post_event(stack, alias, length, "ccm/D")
-
-    # AES/GCM functions
-
-    def mbedtls_gcm_init(self, stack):
-        ctx = stack[0][2]['ctx']
-        self.trace_processor.aliases.add(ctx)
-
-    def mbedtls_gcm_free(self, stack):
-        ctx = stack[0][2]['ctx']
-        self.trace_processor.aliases.remove(ctx)
-
-    def mbedtls_gcm_crypt_and_tag(self, stack):
-        ctx = stack[0][2]['ctx']
-        if int(stack[0][2]['mode']) == 0:
-            mode = "D"
-        else:
-            mode = "E"
-        n = int(stack[0][2]['length'])
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        self.trace_processor.post_event(stack, alias, n, ("gcm/%s" % mode))
 
     # ECDH Functions
 
-    def mbedtls_ecdh_init(self, stack):
-        ctx = stack[0][2]['ctx']
+    def wc_ecc_init_ex(self, stack):
+        ctx = stack[0][2]['key']
         self.trace_processor.aliases.add(ctx)
 
-    def mbedtls_ecdh_free(self, stack):
-        ctx = stack[0][2]['ctx']
+    def wc_ecc_free(self, stack):
+        ctx = stack[0][2]['key']
         self.trace_processor.aliases.remove(ctx)
 
-    def mbedtls_ecdh_calc_secret(self, stack):
-        ctx = stack[0][2]['ctx']
+    def wc_ecc_shared_secret(self, stack):
+        ctx = stack[0][2]['private_key']
         alias = self.trace_processor.aliases.get_alias(ctx)
         self.trace_processor.post_event(stack, alias, 1, 'ecdh')
 
     # ECDSA functions
 
-    def mbedtls_ecdsa_init(self, stack):
-        ctx = stack[0][2]['ctx']
-        self.trace_processor.aliases.add(ctx)
-
-    def mbedtls_ecdsa_free(self, stack):
-        ctx = stack[0][2]['ctx']
-        self.trace_processor.aliases.remove(ctx)
-
-    def mbedtls_ecdsa_write_signature(self, stack):
-        ctx = stack[0][2]['ctx']
+    def wc_ecc_sign_hash (self, stack):
+        ctx = stack[0][2]['key']
         alias = self.trace_processor.aliases.get_alias(ctx)
         self.trace_processor.post_event(stack, alias, 1, 'ecdsa/s')
 
-    def mbedtls_ecdsa_read_signature(self, stack):
-        ctx = stack[0][2]['ctx']
+    def wc_ecc_verify_hash (self, stack):
+        ctx = stack[0][2]['key']
         alias = self.trace_processor.aliases.get_alias(ctx)
         self.trace_processor.post_event(stack, alias, 1, 'ecdsa/v')
 
-    # SHA256
+    # SHA{256,384,512}
 
-    def mbedtls_sha256_init(self, stack):
-        ctx = stack[0][2]['ctx']
+    def wc_InitSha256_ex(self, stack):
+        ctx = stack[0][2]['sha256']
+        self.trace_processor.aliases.add(ctx)
+   
+    def wc_InitSha384_ex(self, stack):
+        ctx = stack[0][2]['sha384']
         self.trace_processor.aliases.add(ctx)
 
-    def mbedtls_sha256_free(self, stack):
-        ctx = stack[0][2]['ctx']
-        self.trace_processor.aliases.remove(ctx)
-
-    def mbedtls_sha256_clone(self, stack):
-        src = stack[0][2]['src']
-        dst = stack[0][2]['dst']
-        self.trace_processor.aliases.clone(src, dst)
-
-    def mbedtls_sha256_update(self, stack):
-        ctx = stack[0][2]['ctx']
-        ilen = int(stack[0][2]['ilen'])
-        alias = self.trace_processor.aliases.get_alias(ctx)
-        if alias is None:
-            raise Exception("Why is sha256 exception context missing %s" % ctx)
-        shortname = "sha256"
-        #if self.does_backtrace_contain_text('ecdsa', payload):
-        #    shortname += '.ecdsa'
-        self.trace_processor.post_event(stack, alias, ilen, shortname)
-
-    # SHA512 (&384, they share contexts, oy!)
-
-    def mbedtls_sha512_init(self, stack):
-        ctx = stack[0][2]['ctx']
+    def wc_InitSha512_ex(self, stack):
+        ctx = stack[0][2]['sha512']
         self.trace_processor.aliases.add(ctx)
 
-    def mbedtls_sha512_free(self, stack):
-        ctx = stack[0][2]['ctx']
+    def wc_Sha256Free(self, stack):
+        ctx = stack[0][2]['sha256']
+        self.trace_processor.aliases.remove(ctx)
+   
+    def wc_Sha384Free(self, stack):
+        ctx = stack[0][2]['sha384']
         self.trace_processor.aliases.remove(ctx)
 
-    def mbedtls_sha512_clone(self, stack):
-        src = stack[0][2]['src']
-        dst = stack[0][2]['dst']
-        self.trace_processor.aliases.clone(src, dst)
+    def wc_Sha512Free(self, stack):
+        ctx = stack[0][2]['sha512']
+        self.trace_processor.aliases.remove(ctx)
 
-    # mbedTLS 3.x
-    
-    def mbedtls_sha512_update(self, stack):
-        ctx = stack[0][2]['ctx']
-        ilen = int(stack[0][2]['ilen'])
+    def wc_Sha256Update(self, stack):
+        ctx = stack[0][2]['sha256']
+        len = int(stack[0][2]['len'])
         alias = self.trace_processor.aliases.get_alias(ctx)
-        shortname = "sha512"
-        #if self.does_backtrace_contain_text('ecdsa', payload):
-        #    shortname += '.ecdsa'
-        self.trace_processor.post_event(stack, alias, ilen, shortname)
+        self.trace_processor.post_event(stack, alias, len, "sha256")
+   
+    def wc_Sha384Update(self, stack):
+        ctx = stack[0][2]['sha384']
+        len = int(stack[0][2]['len'])
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, len, "sha384")
+
+    def wc_Sha512Update(self, stack):
+        ctx = stack[0][2]['sha512']
+        len = int(stack[0][2]['len'])
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, len, "sha512")
 
     # Other important high-level functions dummy attributes for nesting
 
-    def psa_hkdf_input():
+    def EccSign():
         pass
-    def psa_key_derivation_input_internal():
+    
+    def DeriveMasterSecret():
         pass
-    def psa_key_derivation_hkdf_read():
+
+    def HashOutput():
         pass
-    def psa_mac_compute():
+
+    def BuildTls13HandshakeHmac():
         pass
-    def psa_hash_compute():
+
+    def CreateECCEncodedSig():
         pass
-    def mbedtls_ecp_gen_privkey():
+
+    def HashForSignature():
         pass
-    def gcm_aes_setkey_wrap():
+
+    def HashRaw():
         pass
-    def ssl_update_checksum_sha384():
+
+    def Hash_DRBG_Generate():
         pass
-    def ssl_update_checksum_sha256():
+
+    def Hash_DRBG_Instantiate():
         pass
-    def ssl_update_checksum_start():
+
+    def DhGenKeyPair():
         pass
-    def ecp_mul_comb_core():
+
+    def EccMakeKey():
         pass
-    def ecp_mul_comb():
+
+    def Tls13DeriveKey():
         pass
-    def ecp_mul_comb_after_precomp():
+
+    def Tls13_HKDF_Expand():
         pass
-    def mbedtls_ecp_gen_privkey_sw():
+
+    def Tls13_HKDF_Extract():
         pass
-    def ecp_randomize_jac():
+    
+    def DeriveHandshakeSecret():
         pass
-    def mbedtls_md():
+    
+    def ConfirmSignature():
         pass
-    def mbedtls_ctr_drbg_seed():
+
+    def EccVerify():
         pass
-    def mbedtls_ctr_drbg_random():
-        pass
-    def mbedtls_ssl_tls13_evolve_secret():
-        pass
-    def mbedtls_ssl_tls13_derive_secret():
-        pass
-    def mbedtls_ssl_tls13_make_traffic_keys():
-        pass
-    def mbedtls_ssl_tls13_generate_and_write_ecdh_key_exchange():
-        pass
-    #def mbedtls_ssl_tls13_process_certificate_verify():
-    #    pass
 
 class CTraceProcessor:
     """ Processes an mbedTLS TRACE file. """
@@ -494,7 +428,7 @@ def main ():
         if state < 0:
             print(" . % 2s %s" % (state, "PRE-HANDSHAKE"))
         else:
-            print(" . % 2s %s" % (state, mbedtls3_state_names[state]))
+            print(" . % 2s %s" % (state, wolf_state_names[state]))
     print()
 
     print("% 5s,  %- 55s,% 15s:," % ("alias", "type", "context"), end="")
