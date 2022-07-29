@@ -9,11 +9,11 @@ set pagination off
 
 set args \
 	force_version=tls13 \
-	force_ciphersuite=TLS1-3-AES-256-GCM-SHA384 \
-	curves=secp384r1 \
-	ca_file=./mycerts/high/ca.crt \
-	crt_file=./mycerts/high/client.crt \
-	key_file=./mycerts/high/client.key \
+	force_ciphersuite=TLS1-3-AES-128-CCM-SHA256 \
+	curves=secp256r1 \
+	ca_file=$PWD/mycerts/medium/ca.crt \
+	crt_file=$PWD/mycerts/medium/client.crt \
+	key_file=$PWD/mycerts/medium/client.key \
 	server_name=localhost \
 	server_addr=127.0.0.1
 

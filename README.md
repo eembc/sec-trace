@@ -1,20 +1,36 @@
 # Introduction
 
 This repo contains tools for profiling the cryptographic compute load for
-a TLS handshake using mbedTLS 3.2.x. We use three different crypto strengths:
+a TLS handshake. We use three different crypto strengths:
 
 * High:  TLS1-3-AES-256-GCM-SHA384 on curve secp384r1
 * Medium:  TLS1-3-AES-128-CCM-SHA256 on curve secp256r1
 * Light: ChaChaPoly1305, SHA256, Ed25591, X25519 (latter two unsupported by mbedTLS)
 
-# Building the Tools
+# Generating Keys
 
-## mbedTLS 3.x Configuration
+Keys and certs are already provided in `mycerts`.
 
-First clone mbedTLS:
+The program openssl has no curve named secp256r1, just the Koblitz 'k'
+variety; instead use prime256v1. secp384r1 does exist.
+
+NOTE: That the subject CN for the server and client MUST be `localhost`.
+
+See the script `genkeys.bash` for creating all the key and certificate material
+for each level of strength.
+
+# Building and Running
+
+The tools work with mbedTLS 3.x and wolfSSL 5.x. 
+
+## mbedTLS 3.2.x
+
+First clone mbedTLS and switch to the 3.2.1 tag:
 
 ```bash
 % git clone git@github.com:Mbed-TLS/mbedtls
+% cd mbedtls
+% git checkout tags/v3.2.1
 ```
 
 Then prepare a make area:
@@ -28,11 +44,17 @@ Then prepare a make area:
 Now source one of the `config_(high|medium).src` files followed by `config_extra.src`.
 
 ```Bash
-% source **path to sec-trace repo**/config_medium.src
-% source **path to sec-trace repo**/config_extra.src
+% source $PATHTOTHISREPO/config_medium.src
+% source $PATHTOTHISREPO/config_extra.src
 ```
 
-## Notes on configuration
+The reason we use two different configurations is to reduce the number of bytes
+transmitted between the client and server during the negotiation. If more
+ciphersuites are available than we use, then more bytes are transmitted to
+indicate that those suites are available. To reduce the footprint, we build
+the appropriate client/server configurations to reduce unused capabilities.
+
+**Notes on configuration**
 
 Questions: Should we configure for CTR or HMAC DRBG? (We have a choice)
 
@@ -45,62 +67,50 @@ function that had an unused variable.
 Warning-errors: required to set MBEDTLS_SSL_PROTO_TLS1_2 because of an unused
 `ret` in `ssl_handle_hs_message_post_handshake`.
 
-## Compilation
+### Compilation
 
 For tracing on x86 machines, we need to disable stack protection so that
 GDB can skip the prologue and access the stack variables. GDB also needs
 symbols and I prefer to run with zero optimizations. All three of these options
 are specified in CFLAGS. Fortunately, the mbedTLS cmake script respects $CFLAGS.
 
-From within the `mbedtls` repository:
+From within the `mbedtls/build` area:
 
 ```bash
 % export CFLAGS="-g -O0 -fcf-protection=none"
 % make
 ```
 
-## Setup
+### Setup
 
-After building mbedtls link the `build/program/ssl` folder to the repo. The
+After building mbedtls, link the `build/program/ssl` folder to the repo. The
 scripts call `ssl/ssl_client2` and `ssl/ssl_server2`.
 
 From within this repository:
 
 ```bash
-% cd **this repository**
+% cd $PATHTOTHISREPO
 % ln -s $MBEDTLSREPO/build/programs/ssl .
 ```
-
-## Generating Keys
-
-Keys and certs are already provided in `mycerts`.
-
-The program openssl has no curve named secp256r1, just the Koblitz 'k'
-variety; instead use prime256v1. secp384r1 does exist.
-
-NOTE: That the subject CN for the server and client MUST be `localhost`.
-
-See the script `genkeys.bash` for creating all the key and certificate material
-for each level of strength.
 
 ## Collecting a Trace & Processing
 
 From within the root of this repository:
 
 ```bash
-% ./launch_server_tls1_3_medium.bash &
-% gdb -command=command_medium.gdb ./ssl/ssl_client2 > log_medium.txt
+% ./mbed3_launch_server_medium.bash &
+% gdb -command=mbed3_command_medium.gdb ./ssl/ssl_client2 > log_medium.txt
 % fg
 % <ctrl-c>
-% ./process_gdb_trace-mbed3.py log_medium.txt > table_medium.txt
+% ./process_gdb_trace_mbed3.py log_medium.txt > table_medium.txt
 ```
 
-To zoom in on the call stack for an alias, specify the alias number, e.g., 10:
+To expand the call stack for an alias, specify the alias number, e.g., 10:
 ```
-% ./process_gdb_trace-mbed3.py log_medium.txt 10
+% ./process_gdb_trace_mbed3.py log_medium.txt 10
 ```
 
-# Results
+### Results
 
 The beginning of the report will indicate which `rbreak` functions are being
 monitored and which are not. This is developer information. The script will
@@ -166,6 +176,60 @@ For example:
 Here alias 9 is a sha256 that uses the same context memory pointer, but is
 used for four different functions. Not shown is how many bytes are used and
 which handshake stage the occur in (all are in 21: CLIENT_CERTIFICATE_VERIFY).
+
+## wolfSSL 5.4
+
+Currently we use the mbedTLS `ssl/ssl_server2` binary as the host, so please
+follow the steps in the previous section to build mbedTLS.
+
+First, checkout and build wolfSSL. During configure we need to enable some
+additional flags. Since we're not yet using the wolfSSL `server` example,
+we're only building one set of tools. This may change in the future if we
+start using the server, and like with mbedTLS, we want to limit the amount
+of configuration data exchanged during the handshake negotation.
+
+Using `cmake` rebuilds the `examples/client/client` into a binary, rather than
+a script, which is what `make` does:
+
+```bash
+% git clone git@github.com:wolfssl/wolfssl
+% cd wolfssl
+% git checkout tags/v5.4.0-stable
+% mkdir build
+% cd build
+% export CFLAGS="-g -O0 -fcf-protection=none -DWOLFSSL_ECDSA_DETERMINISTIC_K"
+% cmake .. -DWOLFSSL_ECC=yes -DWOLFSSL_KEYGEN=yes -DWOLFSSL_AESCCM=yes
+% make VERBOSE=1
+```
+
+This creates the `client` binary we are going to trace.
+
+Note: I haven't studied the configuration of wolfSSL as deeply as mbedtls, so
+the commands above may be redundant, and there may be more bytes in the
+negotation due to the extra ciphersuites and curves (see previous note in the
+mbedtls config section).
+
+There's a bunch of path madness here since the wolf tools need to be in the
+wolf area, and since GDB doesn't let us construct paths, we have to link
+the `mycerts` to the client area. The `client` error messages aren't helpful,
+so if things go awry, make sure the paths are correct.
+
+From the wolfSSL `build` folder:
+
+```bash
+% cd ../examples/client
+% ln -s $PATHTOTHISREPO/mycerts .
+% $PATHTOTHISREPO/mbed3_launch_server_medium.bash &
+% gdb ./client -command=$PATHTOTHISREPO/wolf5_command_medium.gdb > log
+# `client` doesn't exit, and this may take a 30 seconds; wait until you see:
+#  < Read from client: 14 bytes read
+#
+#hello wolfssl!
+#
+# ...from the backtround server process, and then exit the gdb session with:
+% <ctrl-c>
+% $PATHTOTHISREPO/process_gdb_trace_wolf5.py log
+```
 
 # Sample Data
 

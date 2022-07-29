@@ -3,21 +3,21 @@ set pagination off
 set args \
     -v 4 \
     -p 4433 \
-    -A /home/ptorelli/github/eembc/sec-trace/mycerts/medium/ca.crt \
-    -c /home/ptorelli/github/eembc/sec-trace/mycerts/medium/client.crt \
-    -k /home/ptorelli/github/eembc/sec-trace/mycerts/medium/client.key 
+    -A $PWD/mycerts/high/ca.crt \
+    -c $PWD/mycerts/high/client.crt \
+    -k $PWD/mycerts/high/client.key 
 
 # Prevent the application output from mixing with backtrace!
 tty /dev/null
 
+# Trigger dynamic libwolfssl library load
 break main
 run
 
-
-
 # This prints the client state about to be executed
 # Note: the parser only expects one "print" command.
-rbreak DoTls13HandShakeMsgType
+# Use full regex to avoid @plt procedure linkage table
+rbreak ^DoTls13HandShakeMsgType$
 command
 silent
 backtrace
