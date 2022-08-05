@@ -3,8 +3,8 @@
 This repo contains tools for profiling the cryptographic compute load for
 a TLS handshake. We use three different crypto strengths:
 
-* High:  TLS1-3-AES-256-GCM-SHA384 on curve secp384r1
-* Medium:  TLS1-3-AES-128-CCM-SHA256 on curve secp256r1
+* High: TLS1-3-AES-256-GCM-SHA384 on curve secp384r1
+* Medium: TLS1-3-AES-128-CCM-SHA256 on curve secp256r1
 * Light: ChaChaPoly1305, SHA256, Ed25591, X25519 (latter two unsupported by mbedTLS)
 
 # Generating Keys
@@ -197,9 +197,17 @@ a script, which is what `make` does:
 % git checkout tags/v5.4.0-stable
 % mkdir build
 % cd build
-% export CFLAGS="-g -O0 -fcf-protection=none -DWOLFSSL_ECDSA_DETERMINISTIC_K"
-% cmake .. -DWOLFSSL_ECC=yes -DWOLFSSL_KEYGEN=yes -DWOLFSSL_AESCCM=yes
-% make VERBOSE=1
+% export CFLAGS="-g -O0 -fcf-protection=none"
+% cmake ..
+```
+
+Configuration is accomplished by commenting out various `#define` statements
+in the file `wolfssl/options.h`. The granularity is not as fine as mbedTLS.
+The options file is created by `cmake`, so running `cmake` again will erase
+any changes. Once you've adjusted the option file, make the suite:
+
+```bash
+% make
 ```
 
 This creates the `client` binary we are going to trace.
@@ -214,7 +222,8 @@ wolf area, and since GDB doesn't let us construct paths, we have to link
 the `mycerts` to the client area. The `client` error messages aren't helpful,
 so if things go awry, make sure the paths are correct.
 
-From the wolfSSL `build` folder:
+From the wolfSSL `build` folder, these commands use the wolf client with the
+mbedtls server:
 
 ```bash
 % cd ../examples/client
@@ -230,6 +239,10 @@ From the wolfSSL `build` folder:
 % <ctrl-c>
 % $PATHTOTHISREPO/process_gdb_trace_wolf5.py log
 ```
+
+Commands for wolf client and wolf server: 
+
+* work in progress
 
 # Sample Data
 

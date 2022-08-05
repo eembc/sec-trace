@@ -1,0 +1,240 @@
+No hook for '0x00007ffff7efe1b0'
+No hook for 'wc_ShaHash'
+No hook for '0x00007ffff7efcb50'
+No hook for 'wc_InitSha_ex'
+No hook for '0x00007ffff7efdda0'
+No hook for 'wc_ShaUpdate'
+No hook for '0x00007ffff7efc280'
+No hook for 'wc_ShaFinal'
+No hook for '0x00007ffff7efe550'
+No hook for 'wc_ShaFree'
+No hook for '0x00007ffff7efe1a0'
+Hooked function 'wc_ed25519_init_ex'
+No hook for '0x00007ffff7efd930'
+No hook for 'wc_ed25519_import_private_only'
+No hook for '0x00007ffff7efdb10'
+Hooked function 'wc_ed25519_free'
+No hook for '0x00007ffff7efeb10'
+No hook for 'wc_InitSha256'
+No hook for '0x00007ffff7efe6e0'
+Hooked function 'wc_InitSha256_ex'
+No hook for '0x00007ffff7efdfc0'
+Hooked function 'wc_Sha256Update'
+No hook for '0x00007ffff7efe540'
+No hook for 'wc_Sha256Final'
+No hook for '0x00007ffff7efce30'
+Hooked function 'wc_Sha256Free'
+No hook for '0x00007ffff7efded0'
+Hooked function 'wc_InitSha384_ex'
+No hook for '0x00007ffff7efcab0'
+Hooked function 'wc_InitSha512_ex'
+No hook for '0x00007ffff7efec50'
+Hooked function 'wc_ecc_init_ex'
+No hook for '0x00007ffff7efc080'
+No hook for 'wc_ecc_set_curve'
+No hook for '0x00007ffff7efec60'
+No hook for 'wc_ecc_make_key_ex'
+No hook for '0x00007ffff7efea00'
+No hook for 'wc_ecc_make_key_ex2'
+No hook for 'wc_ecc_reset'
+No hook for 'wc_ecc_curve_load'
+No hook for 'wc_ecc_curve_cache_load_item'
+No hook for '0x00007ffff7efe180'
+No hook for 'wc_ecc_gen_k'
+No hook for 'wc_ecc_new_point_ex'
+No hook for '0x00007ffff7efd940'
+No hook for 'wc_ecc_mulmod_ex2'
+No hook for 'wc_ecc_gen_z'
+No hook for 'wc_ecc_del_point_ex'
+No hook for 'wc_ecc_curve_free'
+No hook for 'wc_ecc_curve_cache_free_spec'
+No hook for 'wc_ecc_curve_cache_free_spec_item'
+No hook for '0x00007ffff7efd9c0'
+No hook for 'wc_ecc_export_x963'
+No hook for '0x00007ffff7efe470'
+No hook for 'wc_ecc_is_valid_idx'
+No hook for '0x00007ffff7efd3f0'
+Hooked function 'wc_Sha384Update'
+No hook for '0x00007ffff7efe7f0'
+Hooked function 'wc_Sha512Update'
+No hook for 'DoTls13HandShakeMsgType'
+No hook for '0x00007ffff7efcec0'
+Hooked function 'wc_ecc_free'
+No hook for '0x00007ffff7efdf10'
+Hooked function 'wc_curve25519_init_ex'
+No hook for '0x00007ffff7efd4d0'
+No hook for 'wc_curve25519_make_key'
+No hook for '0x00007ffff7efea40'
+No hook for 'wc_curve25519_make_priv'
+No hook for '0x00007ffff7efdd30'
+No hook for 'wc_curve25519_make_pub'
+No hook for '0x00007ffff7efd6f0'
+No hook for 'wc_curve25519_export_public_ex'
+No hook for '0x00007ffff7efd300'
+No hook for 'wc_ShaGetHash'
+No hook for '0x00007ffff7efe590'
+No hook for 'wc_ShaCopy'
+No hook for '0x00007ffff7efc760'
+No hook for 'wc_Sha256GetHash'
+No hook for '0x00007ffff7efd6b0'
+No hook for 'wc_Sha256Copy'
+Warning: freeing context without clone/init: 0x7fffffffd850
+No hook for '0x00007ffff7efe3c0'
+No hook for 'wc_Sha384GetHash'
+No hook for '0x00007ffff7efecf0'
+No hook for 'wc_Sha384Copy'
+No hook for '0x00007ffff7efe020'
+No hook for 'wc_Sha384Final'
+No hook for '0x00007ffff7efea50'
+Hooked function 'wc_Sha384Free'
+Warning: freeing context without clone/init: 0x7fffffffd7f0
+No hook for '0x00007ffff7efe3a0'
+No hook for 'wc_Sha512GetHash'
+No hook for '0x00007ffff7efcf50'
+No hook for 'wc_Sha512Copy'
+No hook for 'wc_Sha512Final'
+No hook for '0x00007ffff7efc1c0'
+Hooked function 'wc_Sha512Free'
+Warning: freeing context without clone/init: 0x7fffffffd7d0
+No hook for '0x00007ffff7efc8f0'
+No hook for 'wc_curve25519_init'
+No hook for '0x00007ffff7efcd40'
+No hook for 'wc_curve25519_check_public'
+No hook for '0x00007ffff7efd0f0'
+No hook for 'wc_curve25519_import_public_ex'
+No hook for '0x00007ffff7efd4c0'
+Hooked function 'wc_curve25519_shared_secret_ex'
+No hook for '0x00007ffff7efe970'
+Hooked function 'wc_curve25519_free'
+Warning: freeing context without clone/init: 0x7fffffffd7a0
+Warning: freeing context without clone/init: 0x7fffffffd7a0
+No hook for '0x00007ffff7efd410'
+No hook for 'wc_ed25519_import_public'
+No hook for '0x00007ffff7efeaf0'
+No hook for 'wc_ed25519_import_public_ex'
+No hook for '0x00007ffff7efc9b0'
+Hooked function 'wc_ed25519_verify_msg'
+No hook for '0x00007ffff7efcc90'
+No hook for 'wc_ed25519_verify_msg_ex'
+No hook for '0x00007ffff7efee50'
+Warning: freeing context without clone/init: 0x7fffffffd8c0
+Warning: freeing context without clone/init: 0x7fffffffd5c0
+Warning: freeing context without clone/init: 0x7fffffffd7a0
+Warning: freeing context without clone/init: 0x7fffffffd7a0
+Warning: freeing context without clone/init: 0x7fffffffda10
+No hook for '0x00007ffff7efc5e0'
+No hook for 'wc_ed25519_check_key'
+No hook for '0x00007ffff7efdc20'
+No hook for 'wc_ed25519_make_public'
+No hook for '0x00007ffff7efc2e0'
+Hooked function 'wc_ed25519_sign_msg'
+No hook for '0x00007ffff7efc1d0'
+No hook for 'wc_ed25519_sign_msg_ex'
+Warning: freeing context without clone/init: 0x7fffffffd760
+Warning: freeing context without clone/init: 0x0
+No hook for '0x00007ffff7efe5b0'
+Hooked function 'wc_AesFree'
+Warning: freeing context without clone/init: 0x0
+Warning: freeing context without clone/init: 0x0
+
+Results Table
+-------------
+
+NOTE: Only these mbedTLS state codes are counted:
+ . -1 PRE-HANDSHAKE
+ .  0 hello_request
+ .  2 server_hello
+ .  8 encrypted_extensions
+ . 13 certificate_request
+ . 11 certificate
+ . 15 certificate_verify
+ . 20 finished
+
+alias,  type                                                   ,        context:,    -1,     0,     2,     8,    13,    11,    15,    20,
+00001,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd770,    53,      ,      ,      ,      ,      ,      ,      ,
+00002,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd770,    53,      ,      ,      ,      ,      ,      ,      ,
+00003,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd770,    61,      ,      ,      ,      ,      ,      ,      ,
+00004,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd770,    61,      ,      ,      ,      ,      ,      ,      ,
+00005,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd6b0,    55,      ,      ,      ,      ,      ,      ,      ,
+00006,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd6b0,    55,      ,      ,      ,      ,      ,      ,      ,
+00007,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd6b0,    55,      ,      ,      ,      ,      ,      ,      ,
+00008,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd6b0,    55,      ,      ,      ,      ,      ,      ,      ,
+00009,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd7e0,    56,      ,      ,      ,      ,      ,      ,      ,
+00010,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd6b0,    55,      ,      ,      ,      ,      ,      ,      ,
+00011,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd6b0,    55,      ,      ,      ,      ,      ,      ,      ,
+00012,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd6b0,    55,      ,      ,      ,      ,      ,      ,      ,
+00013,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd6b0,    55,      ,      ,      ,      ,      ,      ,      ,
+00014,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd7e0,    56,      ,      ,      ,      ,      ,      ,      ,
+00015,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd7c0,    53,      ,      ,      ,      ,      ,      ,      ,
+00016,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd7c0,    53,      ,      ,      ,      ,      ,      ,      ,
+00017,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd7c0,    61,      ,      ,      ,      ,      ,      ,      ,
+00018,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd7c0,    61,      ,      ,      ,      ,      ,      ,      ,
+00019,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd700,    55,      ,      ,      ,      ,      ,      ,      ,
+00020,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd700,    55,      ,      ,      ,      ,      ,      ,      ,
+00021,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd700,    55,      ,      ,      ,      ,      ,      ,      ,
+00022,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd700,    55,      ,      ,      ,      ,      ,      ,      ,
+00023,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd830,    56,      ,      ,      ,      ,      ,      ,      ,
+00024,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd700,    55,      ,      ,      ,      ,      ,      ,      ,
+00025,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd700,    55,      ,      ,      ,      ,      ,      ,      ,
+00026,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd700,    55,      ,      ,      ,      ,      ,      ,      ,
+00027,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd700,    55,      ,      ,      ,      ,      ,      ,      ,
+00028,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd830,    56,      ,      ,      ,      ,      ,      ,      ,
+00029,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd9b0,    53,      ,      ,      ,      ,      ,      ,      ,
+00030,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd9b0,    53,      ,      ,      ,      ,      ,      ,      ,
+00031,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd9b0,    61,      ,      ,      ,      ,      ,      ,      ,
+00032,  sha256 (in Hash_DRBG_Instantiate)                      ,  0x7fffffffd9b0,    61,      ,      ,      ,      ,      ,      ,      ,
+00033,  sha256 (in HashOutput)                                 ,  0x555555566a80,   251,      ,      ,      ,      ,      ,      ,      ,
+00034,  sha384 (in HashOutput)                                 ,  0x555555566b00,   251,      ,      ,      ,      ,      ,      ,      ,
+00035,  sha512 (in HashOutput)                                 ,  0x555555566be0,   251,      ,      ,      ,      ,      ,      ,      ,
+00037,  sha256 (in EccMakeKey)                                 ,  0x7fffffffc6d0,    55,      ,      ,      ,      ,      ,      ,      ,
+00038,  sha256 (in EccMakeKey)                                 ,  0x7fffffffc6d0,    55,      ,      ,      ,      ,      ,      ,      ,
+00039,  sha256 (in EccMakeKey)                                 ,  0x7fffffffc800,    56,      ,      ,      ,      ,      ,      ,      ,
+00040,  sha256 (in EccMakeKey)                                 ,  0x7fffffffae90,    55,      ,      ,      ,      ,      ,      ,      ,
+00041,  sha256 (in EccMakeKey)                                 ,  0x7fffffffae90,    55,      ,      ,      ,      ,      ,      ,      ,
+00042,  sha256 (in EccMakeKey)                                 ,  0x7fffffffafc0,    56,      ,      ,      ,      ,      ,      ,      ,
+00043,  sha256 (in EccMakeKey)                                 ,  0x7fffffffae90,    55,      ,      ,      ,      ,      ,      ,      ,
+00044,  sha256 (in EccMakeKey)                                 ,  0x7fffffffae90,    55,      ,      ,      ,      ,      ,      ,      ,
+00045,  sha256 (in EccMakeKey)                                 ,  0x7fffffffafc0,    56,      ,      ,      ,      ,      ,      ,      ,
+00046,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd8d0,    55,      ,      ,      ,      ,      ,      ,      ,
+00047,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffda00,    56,      ,      ,      ,      ,      ,      ,      ,
+00048,  x25519                                                 ,  0x555555564800,      ,      ,     1,      ,      ,      ,      ,      ,
+00049,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd5b0,      ,      ,    55,      ,      ,      ,      ,      ,
+00050,  sha256 (in Hash_DRBG_Generate)                         ,  0x7fffffffd6e0,      ,      ,    56,      ,      ,      ,      ,      ,
+00051,  sha256 (in HashRaw)                                    ,  0x555555566a80,      ,      ,   182,     6,    45,   235,    72,    36,
+00051,  sha256 (in HashOutput)                                 ,  0x555555566a80,      ,      ,   218,      ,      ,      ,      ,   428,
+00052,  sha384 (in HashRaw)                                    ,  0x555555566b00,      ,      ,   182,     6,    45,   235,    72,    36,
+00052,  sha384 (in HashOutput)                                 ,  0x555555566b00,      ,      ,   218,      ,      ,      ,      ,   428,
+00053,  sha512 (in HashRaw)                                    ,  0x555555566be0,      ,      ,   182,     6,    45,   235,    72,    36,
+00053,  sha512 (in HashOutput)                                 ,  0x555555566be0,      ,      ,   218,      ,      ,      ,      ,   428,
+00055,  sha256 (in Tls13_HKDF_Extract)                         ,  0x7fffffffd610,      ,      ,   192,      ,      ,      ,      ,      ,
+00056,  sha256 (in DeriveHandshakeSecret)                      ,  0x7fffffffd880,      ,      ,     0,      ,      ,      ,      ,      ,
+00057,  sha256 (in DeriveHandshakeSecret)                      ,  0x7fffffffd3a0,      ,      ,   210,      ,      ,      ,      ,      ,
+00058,  sha256 (in DeriveHandshakeSecret)                      ,  0x7fffffffd5c0,      ,      ,   192,      ,      ,      ,      ,      ,
+00059,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3b0,      ,      ,   215,      ,      ,      ,      ,      ,
+00060,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3b0,      ,      ,   215,      ,      ,      ,      ,      ,
+00061,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3e0,      ,      ,   174,      ,      ,      ,      ,      ,
+00062,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3e0,      ,      ,   174,      ,      ,      ,      ,      ,
+00063,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3e0,      ,      ,   173,      ,      ,      ,      ,      ,
+00064,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3e0,      ,      ,   173,      ,      ,      ,      ,      ,
+00065,  ed25519/v (in ConfirmSignature)                        ,  0x555555565090,      ,      ,      ,      ,      ,     1,      ,      ,
+00066,  sha512 (in ConfirmSignature)                           ,  0x7fffffffd4d0,      ,      ,      ,      ,      ,   209,      ,      ,
+00067,  ed25519/v                                              ,  0x555555565090,      ,      ,      ,      ,      ,      ,     1,      ,
+00068,  sha512 (in wc_ed25519_verify_msg)                      ,  0x7fffffffd820,      ,      ,      ,      ,      ,      ,   194,      ,
+00069,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd440,      ,      ,      ,      ,      ,      ,      ,   179,
+00070,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd440,      ,      ,      ,      ,      ,      ,      ,   179,
+00071,  sha256 (in BuildTls13HandshakeHmac)                    ,  0x7fffffffd690,      ,      ,      ,      ,      ,      ,      ,   192,
+00072,  sha256 (in DeriveMasterSecret)                         ,  0x7fffffffd880,      ,      ,      ,      ,      ,      ,      ,     0,
+00073,  sha256 (in DeriveMasterSecret)                         ,  0x7fffffffd3a0,      ,      ,      ,      ,      ,      ,      ,   210,
+00074,  sha256 (in DeriveMasterSecret)                         ,  0x7fffffffd5c0,      ,      ,      ,      ,      ,      ,      ,   192,
+00075,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3b0,      ,      ,      ,      ,      ,      ,      ,   215,
+00076,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3b0,      ,      ,      ,      ,      ,      ,      ,   215,
+00077,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3e0,      ,      ,      ,      ,      ,      ,      ,   174,
+00078,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3e0,      ,      ,      ,      ,      ,      ,      ,   174,
+00079,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3e0,      ,      ,      ,      ,      ,      ,      ,   173,
+00080,  sha256 (in Tls13DeriveKey)                             ,  0x7fffffffd3e0,      ,      ,      ,      ,      ,      ,      ,   173,
+00081,  ed25519/s                                              ,  0x555555565090,      ,      ,      ,      ,      ,      ,      ,     1,
+00082,  sha512 (in ed25519_hash)                               ,  0x7fffffffd7e0,      ,      ,      ,      ,      ,      ,      ,    32,
+00083,  sha512 (in wc_ed25519_sign_msg)                        ,  0x7fffffffd6d0,      ,      ,      ,      ,      ,      ,      ,    32,
+00084,  sha512 (in wc_ed25519_sign_msg)                        ,  0x7fffffffd8c0,      ,      ,      ,      ,      ,      ,      ,   162,
+00085,  sha512 (in wc_ed25519_sign_msg)                        ,  0x7fffffffd8c0,      ,      ,      ,      ,      ,      ,      ,   194,
+00086,  sha256 (in BuildTls13HandshakeHmac)                    ,  0x7fffffffd830,      ,      ,      ,      ,      ,      ,      ,   192,

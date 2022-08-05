@@ -1,0 +1,144 @@
+Hooked function 'mbedtls_sha512_init'
+Hooked function 'mbedtls_aes_init'
+No hook for 'mbedtls_aes_setkey_enc'
+No hook for 'mbedtls_sha512'
+No hook for 'mbedtls_sha512_starts'
+Hooked function 'mbedtls_sha512_update'
+No hook for 'mbedtls_sha512_finish'
+Hooked function 'mbedtls_sha512_free'
+Hooked function 'mbedtls_aes_crypt_ecb'
+No hook for 'mbedtls_internal_aes_encrypt'
+Hooked function 'mbedtls_aes_free'
+Hooked function 'mbedtls_sha256_init'
+No hook for 'mbedtls_sha256_starts'
+Hooked function 'mbedtls_ecdh_init'
+Hooked function 'mbedtls_sha256_update'
+No hook for 'mbedtls_ecdh_get_params'
+No hook for 'mbedtls_ecdh_grp_id'
+No hook for 'mbedtls_ecdh_setup'
+Hooked function 'mbedtls_ecdh_calc_secret'
+No hook for 'mbedtls_ecdh_compute_shared'
+Hooked function 'mbedtls_ecdh_free'
+Hooked function 'mbedtls_sha512_clone'
+Hooked function 'mbedtls_gcm_init'
+No hook for 'mbedtls_gcm_setkey'
+No hook for 'mbedtls_gcm_auth_decrypt'
+Hooked function 'mbedtls_gcm_crypt_and_tag'
+No hook for 'mbedtls_gcm_starts'
+No hook for 'mbedtls_gcm_update_ad'
+No hook for 'mbedtls_gcm_update'
+No hook for 'mbedtls_gcm_finish'
+Hooked function 'mbedtls_ecdsa_init'
+No hook for 'mbedtls_ecdsa_from_keypair'
+Hooked function 'mbedtls_ecdsa_read_signature'
+No hook for 'mbedtls_ecdsa_read_signature_restartable'
+No hook for 'mbedtls_ecdsa_can_do'
+Hooked function 'mbedtls_ecdsa_free'
+Hooked function 'mbedtls_ecdsa_write_signature'
+No hook for 'mbedtls_ecdsa_write_signature_restartable'
+Hooked function 'mbedtls_sha256_free'
+Hooked function 'mbedtls_gcm_free'
+
+Results Table
+-------------
+
+NOTE: Only these mbedTLS state codes are counted:
+ . -1 PRE-HANDSHAKE
+ .  2 MBEDTLS_SSL_SERVER_HELLO
+ . 20 MBEDTLS_SSL_ENCRYPTED_EXTENSIONS
+ .  5 MBEDTLS_SSL_CERTIFICATE_REQUEST
+ .  3 MBEDTLS_SSL_SERVER_CERTIFICATE
+ .  9 MBEDTLS_SSL_CERTIFICATE_VERIFY
+ . 13 MBEDTLS_SSL_SERVER_FINISHED
+ .  7 MBEDTLS_SSL_CLIENT_CERTIFICATE
+ . 21 MBEDTLS_SSL_CLIENT_CERTIFICATE_VERIFY
+ . 11 MBEDTLS_SSL_CLIENT_FINISHED
+ . 14 MBEDTLS_SSL_FLUSH_BUFFERS
+ . 15 MBEDTLS_SSL_HANDSHAKE_WRAPUP
+
+alias,  type                                                   ,        context:,    -1,     2,    20,     5,     3,     9,    13,     7,    21,    11,    14,    15,
+00000,  sha512 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff8b08,    66,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00001,  sha512 (in mbedtls_ctr_drbg_seed)                      ,  0x5555555eb5e0,    66,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00002,  ecb/E (in mbedtls_ctr_drbg_seed)                       ,  0x5555555eba08,    48,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00002,  ecb/E (in mbedtls_ssl_tls13...ecdh_key_exchange)       ,  0x5555555eba08,   480,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00002,  ecb/E (in mbedtls_ecdh_calc_secret)                    ,  0x5555555eba08,      ,   192,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00003,  sha512 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff78e0,   128,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00004,  sha512 (in mbedtls_ctr_drbg_seed)                      ,  0x5555555eb5e0,    64,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00005,  sha512 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff7a50,    64,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00006,  ecb/E (in mbedtls_ctr_drbg_seed)                       ,  0x7fffffff78a0,   288,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00007,  ecb/E (in mbedtls_ctr_drbg_seed)                       ,  0x7fffffff8f30,    48,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00007,  ecb/E (in mbedtls_ctr_drbg_random)                     ,  0x7fffffff8f30,    80,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00007,  ecb/E (in mbedtls_ecdsa_write_signature)               ,  0x7fffffff8f30,      ,      ,      ,      ,      ,      ,      ,      ,   288,      ,      ,      ,
+00008,  sha512 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff7920,   128,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00009,  sha512 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff8b08,    64,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00010,  sha512 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff7a90,    64,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00011,  ecb/E (in mbedtls_ctr_drbg_seed)                       ,  0x7fffffff78e0,   336,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00012,  sha256 (in ssl_update_checksum_start)                  ,  0x5555555fa3f0,   199,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00013,  sha512 (in ssl_update_checksum_start)                  ,  0x5555555fa460,   199,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00013,  sha512 (in ssl_update_checksum_sha384)                 ,  0x5555555fa460,      ,   155,     6,    17,   361,   110,    52,   360,   111,    52,      ,      ,
+00016,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff7b90,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00017,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff7b90,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00018,  ecdh                                                   ,  0x7fffffff79e0,      ,     1,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00019,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff7748,      ,     0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00021,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff76c0,      ,   194,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00022,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff76c0,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00024,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff7ac0,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00025,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff7ac0,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00029,  sha512 (in mbedtls_ssl_tls13_derive_secret)            ,  0x7fffffff7900,      ,   199,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00030,  sha512 (in mbedtls_ssl_tls13_derive_secret)            ,  0x7fffffff7900,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00032,  sha512 (in mbedtls_ssl_tls13_derive_secret)            ,  0x7fffffff7900,      ,   199,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00033,  sha512 (in mbedtls_ssl_tls13_derive_secret)            ,  0x7fffffff7900,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00035,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff79c0,      ,   142,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00036,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff79c0,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00038,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff79c0,      ,   142,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00039,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff79c0,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00041,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff79c0,      ,   141,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00042,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff79c0,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00044,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff79c0,      ,   141,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00045,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff79c0,      ,   176,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00046,  gcm/E                                                  ,  0x5555555fb510,      ,      ,      ,      ,      ,      ,      ,   368,   112,    64,      ,      ,
+00047,  gcm/D                                                  ,  0x5555555fdbc0,      ,      ,    16,    32,   368,   112,    64,      ,      ,      ,      ,      ,
+00048,  ecb/E (in gcm_aes_setkey_wrap)                         ,  0x5555555fdd60,      ,    16,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00048,  ecb/E (in mbedtls_gcm_crypt_and_tag)                   ,  0x5555555fdd60,      ,      ,      ,      ,      ,      ,      ,   384,   128,    80,      ,      ,
+00049,  ecb/E (in gcm_aes_setkey_wrap)                         ,  0x5555555fde90,      ,    16,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00049,  ecb/E (in mbedtls_gcm_crypt_and_tag)                   ,  0x5555555fde90,      ,      ,    32,    48,   384,   128,    80,      ,      ,      ,      ,      ,
+00050,  sha512 (in mbedtls_md)                                 ,  0x7fffffff7870,      ,      ,      ,      ,   226,      ,      ,      ,      ,      ,      ,      ,
+00051,  ecdsa/v                                                ,  0x7fffffff7740,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,      ,      ,
+00054,  sha512 (in psa_hash_compute)                           ,  0x7fffffff7a58,      ,      ,      ,      ,      ,   146,      ,      ,      ,      ,      ,      ,
+00055,  ecdsa/v                                                ,  0x7fffffff7990,      ,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,      ,
+00059,  sha512 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff79c0,      ,      ,      ,      ,      ,      ,   147,      ,      ,      ,      ,      ,
+00060,  sha512 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff79c0,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00061,  sha512 (in psa_mac_compute)                            ,  0x7fffffff78c0,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00062,  sha512 (in psa_mac_compute)                            ,  0x7fffffff78c0,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00063,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff77a8,      ,      ,      ,      ,      ,      ,     0,      ,      ,      ,      ,      ,
+00065,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff7720,      ,      ,      ,      ,      ,      ,   194,      ,      ,      ,      ,      ,
+00066,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff7720,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00068,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff7b20,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00069,  sha512 (in mbedtls_ssl_tls13_evolve_secret)            ,  0x7fffffff7b20,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00073,  sha512 (in mbedtls_ssl_tls13_derive_secret)            ,  0x7fffffff7960,      ,      ,      ,      ,      ,      ,   199,      ,      ,      ,      ,      ,
+00074,  sha512 (in mbedtls_ssl_tls13_derive_secret)            ,  0x7fffffff7960,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00076,  sha512 (in mbedtls_ssl_tls13_derive_secret)            ,  0x7fffffff7960,      ,      ,      ,      ,      ,      ,   199,      ,      ,      ,      ,      ,
+00077,  sha512 (in mbedtls_ssl_tls13_derive_secret)            ,  0x7fffffff7960,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00079,  sha512 (in mbedtls_ssl_tls13_derive_secret)            ,  0x7fffffff7960,      ,      ,      ,      ,      ,      ,   197,      ,      ,      ,      ,      ,
+00080,  sha512 (in mbedtls_ssl_tls13_derive_secret)            ,  0x7fffffff7960,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00082,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff7a20,      ,      ,      ,      ,      ,      ,   142,      ,      ,      ,      ,      ,
+00083,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff7a20,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00085,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff7a20,      ,      ,      ,      ,      ,      ,   142,      ,      ,      ,      ,      ,
+00086,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff7a20,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00088,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff7a20,      ,      ,      ,      ,      ,      ,   141,      ,      ,      ,      ,      ,
+00089,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff7a20,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00091,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff7a20,      ,      ,      ,      ,      ,      ,   141,      ,      ,      ,      ,      ,
+00092,  sha512 (in mbedtls_ssl_tls13_make_traffic_keys)        ,  0x7fffffff7a20,      ,      ,      ,      ,      ,      ,   176,      ,      ,      ,      ,      ,
+00093,  gcm/E                                                  ,  0x5555555fd1b0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    64,
+00094,  gcm/D                                                  ,  0x5555555fd350,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   144,
+00095,  ecb/E (in gcm_aes_setkey_wrap)                         ,  0x5555555ffc10,      ,      ,      ,      ,      ,      ,    16,      ,      ,      ,      ,      ,
+00095,  ecb/E (in mbedtls_gcm_crypt_and_tag)                   ,  0x5555555ffc10,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    96,
+00096,  ecb/E (in gcm_aes_setkey_wrap)                         ,  0x5555555ffd40,      ,      ,      ,      ,      ,      ,    16,      ,      ,      ,      ,      ,
+00096,  ecb/E (in mbedtls_gcm_crypt_and_tag)                   ,  0x5555555ffd40,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   160,
+00099,  sha512 (in psa_hash_compute)                           ,  0x7fffffff7a68,      ,      ,      ,      ,      ,      ,      ,      ,   146,      ,      ,      ,
+00100,  ecdsa/s                                                ,  0x7fffffff7940,      ,      ,      ,      ,      ,      ,      ,      ,     1,      ,      ,      ,
+00101,  sha512 (in mbedtls_ecdsa_write_signature)              ,  0x5555555ffe70,      ,      ,      ,      ,      ,      ,      ,      ,  2787,      ,      ,      ,
+00105,  sha512 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff79b0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   147,      ,      ,
+00106,  sha512 (in psa_key_derivation_hkdf_read)               ,  0x7fffffff79b0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   176,      ,      ,
+00107,  sha512 (in psa_mac_compute)                            ,  0x7fffffff78b0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   176,      ,      ,
+00108,  sha512 (in psa_mac_compute)                            ,  0x7fffffff78b0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   176,      ,      ,

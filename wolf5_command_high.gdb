@@ -2,7 +2,6 @@ set pagination off
 
 set args \
     -v 4 \
-    -p 4433 \
     -A $PWD/mycerts/high/ca.crt \
     -c $PWD/mycerts/high/client.crt \
     -k $PWD/mycerts/high/client.key 

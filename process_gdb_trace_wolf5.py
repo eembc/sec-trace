@@ -150,7 +150,6 @@ class CParserLibrary:
                 nest = name
         return nest
 
-
     def wc_AesGcmEncrypt(self, stack):
         ctx = stack[0][2]['aes']
         n = int(stack[0][2]['sz'])
@@ -183,9 +182,36 @@ class CParserLibrary:
         ctx = stack[0][2]['aes']
         self.trace_processor.aliases.remove(ctx)
 
-    # AES ECB Functions
+    def wc_ed25519_init_ex(self, stack):
+        ctx = stack[0][2]['key']
+        self.trace_processor.aliases.add(ctx)
 
-    # ECDH Functions
+    def wc_ed25519_free(self, stack):
+        ctx = stack[0][2]['key']
+        self.trace_processor.aliases.remove(ctx)
+
+    def wc_ed25519_sign_msg (self, stack):
+        ctx = stack[0][2]['key']
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, 1, 'ed25519/s')
+
+    def wc_ed25519_verify_msg (self, stack):
+        ctx = stack[0][2]['key']
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, 1, 'ed25519/v')
+
+    def wc_curve25519_init_ex(self, stack):
+        ctx = stack[0][2]['key']
+        self.trace_processor.aliases.add(ctx)
+
+    def wc_curve25519_free(self, stack):
+        ctx = stack[0][2]['key']
+        self.trace_processor.aliases.remove(ctx)
+
+    def wc_curve25519_shared_secret_ex(self, stack):
+        ctx = stack[0][2]['private_key']
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, 1, 'x25519')
 
     def wc_ecc_init_ex(self, stack):
         ctx = stack[0][2]['key']
@@ -200,8 +226,6 @@ class CParserLibrary:
         alias = self.trace_processor.aliases.get_alias(ctx)
         self.trace_processor.post_event(stack, alias, 1, 'ecdh')
 
-    # ECDSA functions
-
     def wc_ecc_sign_hash (self, stack):
         ctx = stack[0][2]['key']
         alias = self.trace_processor.aliases.get_alias(ctx)
@@ -211,8 +235,6 @@ class CParserLibrary:
         ctx = stack[0][2]['key']
         alias = self.trace_processor.aliases.get_alias(ctx)
         self.trace_processor.post_event(stack, alias, 1, 'ecdsa/v')
-
-    # SHA{256,384,512}
 
     def wc_InitSha256_ex(self, stack):
         ctx = stack[0][2]['sha256']
@@ -307,6 +329,9 @@ class CParserLibrary:
         pass
 
     def EccVerify():
+        pass
+
+    def ed25519_hash():
         pass
 
 class CTraceProcessor:
