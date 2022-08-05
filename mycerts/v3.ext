@@ -1,0 +1,3 @@
+extendedKeyUsage = serverAuth, clientAuth, codeSigning, emailProtection
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment

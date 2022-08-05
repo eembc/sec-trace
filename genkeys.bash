@@ -2,9 +2,12 @@
 
 CERTDIR=mycerts
 
-
 mkdir -p $CERTDIR
 pushd $CERTDIR
+
+echo "extendedKeyUsage = serverAuth, clientAuth, codeSigning, emailProtection" > v3.ext
+echo "basicConstraints = CA:FALSE" >> v3.ext
+echo "keyUsage = nonRepudiation, digitalSignature, keyEncipherment" >> v3.ext
 
 ## Light: EdDSA + SHA256
 
@@ -18,7 +21,7 @@ openssl req -x509 -nodes -key ca.key -days 3650 -subj '/CN=CA' \
 openssl genpkey -out client.key -algorithm ed25519
 openssl req -new -key client.key -out client.csr -subj '/CN=localhost'
 openssl x509 -req -CA ca.crt -CAkey ca.key -CAcreateserial \
-    -sha256 -in client.csr -out client.crt -days 3650
+    -sha256 -in client.csr -out client.crt -days 3650 -extfile ../v3.ext
 
 openssl genpkey -out server.key -algorithm ed25519
 openssl req -new -key server.key -out server.csr -subj '/CN=localhost'
@@ -39,7 +42,7 @@ openssl req -x509 -nodes -key ca.key -days 3650 -subj '/CN=CA' \
 openssl ecparam -out client.key -genkey -name prime256v1
 openssl req -new -key client.key -out client.csr -subj '/CN=localhost'
 openssl x509 -req -CA ca.crt -CAkey ca.key -CAcreateserial \
-    -sha256 -in client.csr -out client.crt -days 3650
+    -sha256 -in client.csr -out client.crt -days 3650 -extfile ../v3.ext
 
 openssl ecparam -out server.key -genkey -name prime256v1
 openssl req -new -key server.key -out server.csr -subj '/CN=localhost'
@@ -53,7 +56,7 @@ popd
 mkdir high
 pushd high
 
-Note that the subject CN for the server and client MUST be `localhost`.
+# Note that the subject CN for the server and client MUST be `localhost`.
 
 openssl ecparam -out ca.key -genkey -name secp384r1
 openssl req -x509 -nodes -key ca.key -days 3650 -subj '/CN=CA' \
@@ -62,7 +65,7 @@ openssl req -x509 -nodes -key ca.key -days 3650 -subj '/CN=CA' \
 openssl ecparam -out client.key -genkey -name secp384r1
 openssl req -new -key client.key -out client.csr -subj '/CN=localhost'
 openssl x509 -req -CA ca.crt -CAkey ca.key -CAcreateserial \
-    -sha384 -in client.csr -out client.crt -days 3650
+    -sha384 -in client.csr -out client.crt -days 3650 -extfile ../v3.ext
 
 openssl ecparam -out server.key -genkey -name secp384r1
 openssl req -new -key server.key -out server.csr -subj '/CN=localhost'
