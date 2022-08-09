@@ -149,8 +149,8 @@ class CParserLibrary:
                 # Don't break, we're finding the HIGHEST level name
             except:
                 pass
-            if re.match(r'^ssl_tls13_', name):
-                nest = name
+            #if re.match(r'^ssl_tls13_', name):
+            #    nest = name
         return nest
 
     # AES ECB Functions
@@ -186,6 +186,26 @@ class CParserLibrary:
         self.trace_processor.post_event(stack, alias, 16, shorty) 
 
     # AES/CCM functions
+
+    def mbedtls_chachapoly_init(self, stack):
+        ctx = stack[0][2]['ctx']
+        self.trace_processor.aliases.add(ctx)
+
+    def mbedtls_chachapoly_free(self, stack):
+        ctx = stack[0][2]['ctx']
+        self.trace_processor.aliases.remove(ctx)
+
+    def mbedtls_chachapoly_encrypt_and_tag(self, stack):
+        ctx = stack[0][2]['ctx']
+        length = int(stack[0][2]['length'])
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, length, "ccpy/E")
+
+    def mbedtls_chachapoly_auth_decrypt(self, stack):
+        ctx = stack[0][2]['ctx']
+        length = int(stack[0][2]['length'])
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        self.trace_processor.post_event(stack, alias, length, "ccpy/D")
 
     def mbedtls_ccm_init(self, stack):
         ctx = stack[0][2]['ctx']
@@ -364,7 +384,6 @@ class CParserLibrary:
     #    pass
 
 class CTraceProcessor:
-    """ Processes an mbedTLS TRACE file. """
     def __init__(self):
         self.aliases = CAliasTable()
         self.parsers = CParserLibrary(self)
@@ -446,7 +465,7 @@ class CTraceProcessor:
 
         # Slot needs to have depth
         left = 7
-        max = 45
+        max = 44
         right = max - left - 3
         if nest is not None:
             shortnest = nest

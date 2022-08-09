@@ -146,8 +146,11 @@ class CParserLibrary:
                 # Don't break, we're finding the HIGHEST level name
             except:
                 pass
-            if re.match(r'^ssl_tls13_', name):
-                nest = name
+            #if re.match(r'^DoTls13', name):
+            #    if name == 'DoTls13HandShakeMsg' or name == 'DoTls13HandShakeMsgType':
+            #        pass
+            #    else:
+            #        nest = name
         return nest
 
     def wc_AesGcmEncrypt(self, stack):
@@ -278,6 +281,24 @@ class CParserLibrary:
         alias = self.trace_processor.aliases.get_alias(ctx)
         self.trace_processor.post_event(stack, alias, len, "sha512")
 
+    # CC20P1305 doesn't have an init/free, so we must infer/bypass checks
+    def ChaCha20Poly1305_Encrypt(self, stack):
+        ctx = stack[0][2]['ssl']
+        self.trace_processor.aliases.add(ctx)
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        n = int(stack[0][2]['sz'])
+        self.trace_processor.post_event(stack, alias, n, "cc20p1305/E")
+        self.trace_processor.aliases.remove(ctx)
+
+    # CC20P1305 doesn't have an init/free, so we must infer/bypass checks
+    def ChaCha20Poly1305_Decrypt(self, stack):
+        ctx = stack[0][2]['ssl']
+        self.trace_processor.aliases.add(ctx)
+        alias = self.trace_processor.aliases.get_alias(ctx)
+        n = int(stack[0][2]['sz'])
+        self.trace_processor.post_event(stack, alias, n, "cc20p1305/D")
+        self.trace_processor.aliases.remove(ctx)
+
     # Other important high-level functions dummy attributes for nesting
 
     def EccSign():
@@ -334,8 +355,13 @@ class CParserLibrary:
     def ed25519_hash():
         pass
 
+    def wc_InitRng_ex():
+        pass
+
+    def DeriveEarlySecret():
+        pass
+
 class CTraceProcessor:
-    """ Processes an mbedTLS TRACE file. """
     def __init__(self):
         self.aliases = CAliasTable()
         self.parsers = CParserLibrary(self)
