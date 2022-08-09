@@ -12,6 +12,7 @@ high)
 	# Note: '-E' option is EEMBC custom
 	./server \
 		-v 4 \
+		-p 11111 \
 		-l TLS_AES_256_GCM_SHA384 \
 		-E \
 		-A $CERT_DIR/high/ca.crt \
@@ -21,6 +22,7 @@ medium)
 	# -Y forces SECP256R1
 	./server \
 		-v 4 \
+		-p 11111 \
 		-l TLS_AES_128_CCM_SHA256 \
 		-Y \
 		-A $CERT_DIR/medium/ca.crt \
@@ -30,6 +32,7 @@ light)
 	# -t forces X25519
 	./server \
 		-v 4 \
+		-p 11111 \
 		-l TLS_CHACHA20_POLY1305_SHA256 \
 		-t \
 		-A $CERT_DIR/light/ca.crt \
@@ -39,4 +42,3 @@ light)
 	echo "Mode '$mode' is not valid; must be light, medium, high"
 	exit -1
 esac
-

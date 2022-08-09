@@ -14,9 +14,6 @@ case $mode in
 high|medium|light)
 	gdb -command=$COMMAND_DIR/wolf5_command_$mode.gdb ./client > $LOG
     $COMMAND_DIR/process_gdb_trace_wolf5.py $LOG > $TABLE
-#		-A $CERT_DIR/$mode/ca.crt \
-#		-c $CERT_DIR/$mode/client.crt \
-#		-k $CERT_DIR/$mode/client.key;;
     ;;
 *)
 	echo "Mode '$mode' is not valid; must be light, medium, high"

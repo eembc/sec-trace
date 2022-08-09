@@ -15,7 +15,8 @@ set args \
 	crt_file=$PWD/mycerts/high/client.crt \
 	key_file=$PWD/mycerts/high/client.key \
 	server_name=localhost \
-	server_addr=127.0.0.1
+	server_addr=127.0.0.1 \
+	server_port=11111
 
 # Prevent the application output from mixing with backtrace!
 tty /dev/null

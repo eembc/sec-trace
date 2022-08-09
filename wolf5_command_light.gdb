@@ -1,3 +1,12 @@
+# Note: You need to link `mycerts` into the client example area
+
+# Note: must be built with
+# -g for debug info
+# -fcf-protection=none ; early GCC can't access state prologue
+# i.e.:
+# 	% export CFLAGS="-g -O0 -fcf-protection=none"
+#   % cmake .. -DENABLE_TESTING=OFF
+
 set pagination off
 
 set args \
@@ -38,7 +47,7 @@ backtrace
 continue 
 end
 
-rbreak wc_ChaCha20Poly1305.*
+rbreak ^ChaCha20Poly1305_.*
 command
 silent
 backtrace

@@ -1,3 +1,4 @@
+# THIS IS FAKE LIGHT BECAUSE WE DON'T HAVE 25519
 # Note: must be built with
 # -g for debug info
 # -fcf-protection=none ; early GCC can't access state prologue
@@ -9,7 +10,7 @@ set pagination off
 
 set args \
 	force_version=tls13 \
-	force_ciphersuite=TLS1-3-AES-128-CCM-SHA256 \
+	force_ciphersuite=TLS1-3-CHACHA20-POLY1305-SHA256 \
 	curves=secp256r1 \
 	ca_file=$PWD/mycerts/medium/ca.crt \
 	crt_file=$PWD/mycerts/medium/client.crt \
@@ -30,15 +31,7 @@ print ssl->state
 continue 
 end
 
-
 rbreak mbedtls_.*aes
-command
-silent
-backtrace
-continue 
-end
-
-rbreak mbedtls_ccm
 command
 silent
 backtrace
@@ -53,13 +46,6 @@ continue
 end
 
 rbreak mbedtls_ecdsa
-command
-silent
-backtrace
-continue 
-end
-
-rbreak mbedtls_gcm
 command
 silent
 backtrace
