@@ -44,7 +44,7 @@ Then prepare a make area:
 Now source one of the `config_(high|medium).src` files followed by `config_extra.src`.
 
 ```Bash
-% source $PATHTOTHISREPO/config_medium.src
+% source $PATHTOTHISREPO/config_(medium|high).src
 % source $PATHTOTHISREPO/config_extra.src
 ```
 
@@ -95,19 +95,23 @@ From within this repository:
 
 ## Collecting a Trace & Processing
 
-From within the root of this repository:
+To simplify things, there are two scripts for launching the server, and then
+the client via gdb and creating the table. Check the top two lines of both
+files to make sure your paths are correct, as there is lots of `cd`ing in
+the scripts:
 
 ```bash
-% ./mbed3_launch_server_medium.bash &
-% gdb -command=mbed3_command_medium.gdb ./ssl/ssl_client2 > log_medium.txt
+% ./mbed3_launch_server.bash medium &
+% ./mbed3_launch_client.bash medium
 % fg
 % <ctrl-c>
-% ./process_gdb_trace_mbed3.py log_medium.txt > table_medium.txt
 ```
+
+This will create `log.mbed3.medium` and `table.mbed3.medium`
 
 To expand the call stack for an alias, specify the alias number, e.g., 10:
 ```
-% ./process_gdb_trace_mbed3.py log_medium.txt 10
+% ./process_gdb_trace_mbed3.py log.mbed3.medium 10
 ```
 
 ### Results
@@ -177,10 +181,7 @@ Here alias 9 is a sha256 that uses the same context memory pointer, but is
 used for four different functions. Not shown is how many bytes are used and
 which handshake stage the occur in (all are in 21: CLIENT_CERTIFICATE_VERIFY).
 
-## wolfSSL 5.4
-
-Currently we use the mbedTLS `ssl/ssl_server2` binary as the host, so please
-follow the steps in the previous section to build mbedTLS.
+## wolfSSL 5.4 client with mbedTLS 3 server
 
 First, checkout and build wolfSSL. During configure we need to enable some
 additional flags. Since we're not yet using the wolfSSL `server` example,
@@ -212,11 +213,6 @@ any changes. Once you've adjusted the option file, make the suite:
 
 This creates the `client` binary we are going to trace.
 
-Note: I haven't studied the configuration of wolfSSL as deeply as mbedtls, so
-the commands above may be redundant, and there may be more bytes in the
-negotation due to the extra ciphersuites and curves (see previous note in the
-mbedtls config section).
-
 There's a bunch of path madness here since the wolf tools need to be in the
 wolf area, and since GDB doesn't let us construct paths, we have to link
 the `mycerts` to the client area. The `client` error messages aren't helpful,
@@ -228,24 +224,29 @@ mbedtls server:
 ```bash
 % cd ../examples/client
 % ln -s $PATHTOTHISREPO/mycerts .
-% $PATHTOTHISREPO/mbed3_launch_server_medium.bash &
-% gdb ./client -command=$PATHTOTHISREPO/wolf5_command_medium.gdb > log
-# `client` doesn't exit, and this may take a 30 seconds; wait until you see:
-#  < Read from client: 14 bytes read
-#
-#hello wolfssl!
-#
-# ...from the backtround server process, and then exit the gdb session with:
+% cd $PATHTOTHISREPO
+% ./mbed3_launch_server.bash medium &
+% ./wolf5_launch_client.bash medium
+% fg
 % <ctrl-c>
-% $PATHTOTHISREPO/process_gdb_trace_wolf5.py log
 ```
 
-Commands for wolf client and wolf server: 
+## wolfSSL 5.4 client with wolfSSL 5.4 server
 
-* work in progress
+```bash
+% cd ../examples/client
+% ln -s $PATHTOTHISREPO/mycerts .
+% cd $PATHTOTHISREPO
+% ./wolf5_launch_server.bash medium &
+% ./wolf5_launch_client.bash medium
+% fg
+% <ctrl-c>
+```
+
+Note that the prefix of the server script changes.
+
 
 # Sample Data
 
-The folder `data/` contains results collected on an Ubuntu 20 machine running
-mbedTLS 3.2.1. The log contains the raw traces. The table are the final
-results.
+The folder `data/` contains results collected on an Ubuntu 20 machine. The log
+contains the raw traces. The table are the final results.
