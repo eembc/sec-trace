@@ -24,7 +24,7 @@ medium)
     ./ssl_server2 \
         server_port=11111 \
         force_version=tls13 \
-        force_ciphersuite=TLS1-3-AES-256-GCM-SHA384 \
+        force_ciphersuite=TLS1-3-AES-128-CCM-SHA256 \
         curves=secp256r1 \
         ca_file=$CERT_DIR/medium/ca.crt \
         crt_file=$CERT_DIR/medium/server.crt \
