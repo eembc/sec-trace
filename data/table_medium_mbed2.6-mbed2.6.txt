@@ -1,0 +1,91 @@
+No hook for 'mbedtls_sha512_starts'
+No hook for 'mbedtls_aes_setkey_enc'
+No hook for 'mbedtls_aesni_has_support'
+No hook for 'mbedtls_aesni_setkey_enc'
+No hook for 'mbedtls_sha512'
+No hook for 'mbedtls_sha512_process'
+No hook for 'mbedtls_sha512_finish'
+Some other error mbedtls_sha512_update Alias is none for context 0x7fffffff9ac0
+Some other error mbedtls_sha512_update Alias is none for context 0x7fffffff9ac0
+Some other error mbedtls_sha512_update Alias is none for context 0x7fffffff9ac0
+Some other error mbedtls_sha512_update Alias is none for context 0x7fffffff9ac0
+Some other error mbedtls_sha512_update Alias is none for context 0x7fffffff9ac0
+Some other error mbedtls_sha512_update Alias is none for context 0x7fffffff9ac0
+Some other error mbedtls_sha512_update Alias is none for context 0x7fffffff9ac0
+No hook for 'mbedtls_aesni_crypt_ecb'
+No hook for 'mbedtls_sha1_init'
+No hook for 'mbedtls_sha1_starts'
+No hook for 'mbedtls_sha256_starts'
+No hook for 'mbedtls_sha1_update'
+No hook for 'mbedtls_sha1_process'
+No hook for 'mbedtls_sha256_process'
+No hook for 'mbedtls_sha256'
+No hook for 'mbedtls_sha256_finish'
+No hook for 'mbedtls_ecdsa_from_keypair'
+No hook for 'mbedtls_ecdsa_verify'
+No hook for 'mbedtls_ecdh_read_params'
+No hook for 'mbedtls_ecdh_make_public'
+No hook for 'mbedtls_ecdh_gen_public'
+No hook for 'mbedtls_ecdh_compute_shared'
+No hook for 'mbedtls_gcm_setkey'
+No hook for 'mbedtls_ecdsa_sign_det'
+No hook for 'mbedtls_ecdsa_sign'
+No hook for 'mbedtls_gcm_starts'
+No hook for 'mbedtls_aesni_gcm_mult'
+No hook for 'mbedtls_gcm_update'
+No hook for 'mbedtls_gcm_finish'
+No hook for 'mbedtls_gcm_auth_decrypt'
+No hook for 'mbedtls_sha1_free'
+
+Results Table
+-------------
+
+NOTE: Only these mbedTLS state codes are counted:
+ . -1 PRE-HANDSHAKE
+ .  0 MBEDTLS_SSL_HELLO_REQUEST
+ .  1 MBEDTLS_SSL_CLIENT_HELLO
+ .  2 MBEDTLS_SSL_SERVER_HELLO
+ .  3 MBEDTLS_SSL_SERVER_CERTIFICATE
+ .  4 MBEDTLS_SSL_SERVER_KEY_EXCHANGE
+ .  5 MBEDTLS_SSL_CERTIFICATE_REQUEST
+ .  6 MBEDTLS_SSL_SERVER_HELLO_DONE
+ .  7 MBEDTLS_SSL_CLIENT_CERTIFICATE
+ .  8 MBEDTLS_SSL_CLIENT_KEY_EXCHANGE
+ .  9 MBEDTLS_SSL_CERTIFICATE_VERIFY
+ . 10 MBEDTLS_SSL_CLIENT_CHANGE_CIPHER_SPEC
+ . 11 MBEDTLS_SSL_CLIENT_FINISHED
+ . 12 MBEDTLS_SSL_SERVER_CHANGE_CIPHER_SPEC
+ . 13 MBEDTLS_SSL_SERVER_FINISHED
+ . 14 MBEDTLS_SSL_FLUSH_BUFFERS
+ . 15 MBEDTLS_SSL_HANDSHAKE_WRAPUP
+ . 16 MBEDTLS_SSL_HANDSHAKE_OVER
+
+alias,  type                                                   ,        context:,    -1,     0,     1,     2,     3,     4,     5,     6,     7,     8,     9,    10,    11,    12,    13,    14,    15,    16,
+00000,  ecb/e                                                  ,  0x7fffffff9648,    48,      ,    80,      ,      ,      ,      ,      ,      ,   160,      ,      ,      ,      ,      ,      ,      ,      ,
+00000,  ecb/e (in mbedtls_ecdh_calc_secret)                    ,  0x7fffffff9648,      ,      ,      ,      ,      ,      ,      ,      ,      ,    80,      ,      ,      ,      ,      ,      ,      ,      ,
+00001,  sha512                                                 ,  0x7fffffff8a10,   256,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00002,  sha512                                                 ,  0x7fffffff8b80,   128,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00003,  ecb/e                                                  ,  0x7fffffff89d0,   336,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00004,  sha256                                                 ,  0x5555555fd0ac,      ,      ,   119,    63,   296,   149,    40,     4,   382,    70,    78,      ,    16,   571,    16,      ,      ,      ,
+00005,  sha512                                                 ,  0x5555555fd118,      ,      ,   119,    63,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00006,  ecdh                                                   ,  0x5555555fcd00,      ,      ,      ,      ,      ,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,      ,      ,      ,
+00007,  sha256                                                 ,  0x7fffffff8c40,      ,      ,      ,      ,   256,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00008,  ecdsa/v                                                ,  0x7fffffff8b00,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00009,  sha512                                                 ,  0x555555606750,      ,      ,      ,      ,      ,   256,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00010,  ecdsa/v                                                ,  0x7fffffff8bb0,      ,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00012,  sha256                                                 ,  0x7fffffff8bf0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    29,      ,      ,      ,      ,      ,      ,      ,
+00013,  sha256                                                 ,  0x555555609640,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,  1408,      ,      ,      ,      ,      ,      ,      ,
+00014,  sha256                                                 ,  0x555555609750,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,  4928,      ,      ,      ,      ,      ,      ,      ,
+00015,  gcm/e                                                  ,  0x555555609860,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    16,      ,      ,      ,    36,      ,
+00016,  gcm/d                                                  ,  0x555555609a10,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    16,      ,   152,      ,
+00017,  ecb/e                                                  ,  0x555555609bc0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    16,      ,      ,      ,      ,      ,      ,      ,
+00017,  ecb/e (in mbedtls_gcm_crypt_and_tag)                   ,  0x555555609bc0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    32,      ,      ,      ,    96,      ,
+00018,  ecb/e                                                  ,  0x555555609cf0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    16,      ,      ,      ,      ,      ,      ,      ,
+00018,  ecb/e (in mbedtls_gcm_crypt_and_tag)                   ,  0x555555609cf0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    32,      ,   176,      ,
+00020,  sha256                                                 ,  0x7fffffff8dd0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    29,      ,      ,      ,      ,      ,      ,      ,
+00021,  ecdsa/s                                                ,  0x7fffffff8c90,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,      ,      ,
+00022,  sha256 (in mbedtls_ecdsa_write_signature)              ,  0x555555609e20,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,  3520,      ,      ,      ,      ,      ,      ,      ,
+00024,  sha256                                                 ,  0x7fffffff8e30,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    15,      ,      ,      ,      ,      ,
+00025,  sha256                                                 ,  0x55555560ad00,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   832,      ,      ,      ,      ,      ,
+00027,  sha256                                                 ,  0x7fffffff8e10,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    68,      ,      ,      ,
+00028,  sha256                                                 ,  0x55555560a0e0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   832,      ,      ,      ,

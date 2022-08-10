@@ -1,0 +1,103 @@
+No hook for 'mbedtls_aes_setkey_enc'
+No hook for 'mbedtls_sha256_ret'
+No hook for 'mbedtls_sha256_starts_ret'
+No hook for 'mbedtls_sha256_finish_ret'
+No hook for 'mbedtls_aes_crypt_ecb'
+No hook for 'mbedtls_ecdh_make_params'
+No hook for 'mbedtls_ecdh_gen_public'
+No hook for 'mbedtls_ecdh_read_params'
+No hook for 'mbedtls_ecdh_setup'
+No hook for 'mbedtls_ecdh_compute_shared'
+No hook for 'mbedtls_ccm_setkey'
+No hook for 'mbedtls_ccm_auth_decrypt'
+No hook for 'mbedtls_ecdsa_from_keypair'
+No hook for 'mbedtls_ecdsa_read_signature_restartable'
+No hook for 'mbedtls_ecdsa_can_do'
+No hook for 'mbedtls_sha256'
+No hook for 'mbedtls_ccm_encrypt_and_tag'
+Warning: freeing context without clone/init: 0x7fffffff7c30
+
+Results Table
+-------------
+
+NOTE: Only these mbedTLS state codes are counted:
+ . -1 PRE-HANDSHAKE
+ .  0 MBEDTLS_SSL_HELLO_REQUEST
+ .  1 MBEDTLS_SSL_CLIENT_HELLO
+ .  2 MBEDTLS_SSL_SERVER_HELLO
+ . 14 MBEDTLS_SSL_FLUSH_BUFFERS
+ .  6 MBEDTLS_SSL_SERVER_HELLO_DONE
+ .  7 MBEDTLS_SSL_CLIENT_CERTIFICATE
+ .  8 MBEDTLS_SSL_CLIENT_KEY_EXCHANGE
+ .  9 MBEDTLS_SSL_CERTIFICATE_VERIFY
+ . 11 MBEDTLS_SSL_CLIENT_FINISHED
+ . 12 MBEDTLS_SSL_SERVER_CHANGE_CIPHER_SPEC
+ . 13 MBEDTLS_SSL_SERVER_FINISHED
+ . 15 MBEDTLS_SSL_HANDSHAKE_WRAPUP
+ . 16 MBEDTLS_SSL_HANDSHAKE_OVER
+
+alias,  type                                                   ,        context:,    -1,     0,     1,     2,    14,     6,     7,     8,     9,    11,    12,    13,    15,    16,
+00000,  sha256 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff88d4,    44,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00001,  aes/E (in mbedtls_ctr_drbg_seed)                       ,  0x7fffffff8608,    48,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00001,  aes/E (in mbedtls_ctr_drbg_random)                     ,  0x7fffffff8608,      ,      ,   320,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00001,  aes/E (in mbedtls_ecdh_calc_secret)                    ,  0x7fffffff8608,      ,      ,      ,      ,   160,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00001,  aes/E (in mbedtls_ecdsa_write_signature)               ,  0x7fffffff8608,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   240,      ,      ,      ,
+00002,  sha256 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff7960,   128,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00003,  sha256 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff88d4,    76,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00004,  sha256 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff7ab0,    32,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00005,  sha256 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff7960,   128,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00006,  sha256 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff88d4,    32,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00007,  sha256 (in mbedtls_ctr_drbg_seed)                      ,  0x7fffffff7ab0,    32,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00008,  aes/E (in mbedtls_ctr_drbg_seed)                       ,  0x7fffffff7880,   336,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00009,  sha256 (in ssl_update_checksum_start)                  ,  0x5555555bef78,      ,      ,   163,   117,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00009,  sha256 (in ssl_update_checksum_sha256)                 ,  0x5555555bef78,      ,      ,      ,      ,    10,    15,   300,    80,    36,   298,    79,    36,      ,      ,
+00010,  ecdh                                                   ,  0x5555555becb8,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00011,  sha256 (in mbedtls_hkdf_extract)                       ,  0x5555555bf5f0,      ,      ,      ,      ,   192,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00012,  sha256 (in mbedtls_ssl_tls1_3_derive_secret)           ,  0x7fffffff7950,      ,      ,      ,      ,     0,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00013,  sha256 (in mbedtls_ssl_tls1_3_derive_secret)           ,  0x5555555c0b80,      ,      ,      ,      ,   210,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00014,  sha256 (in mbedtls_hkdf_extract)                       ,  0x5555555c0c90,      ,      ,      ,      ,   192,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00015,  sha256 (in mbedtls_ssl_tls1_3_derive_secret)           ,  0x7fffffff7950,      ,      ,      ,      ,     0,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00016,  sha256 (in mbedtls_ssl_tls1_3_derive_secret)           ,  0x5555555c0da0,      ,      ,      ,      ,   210,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00017,  sha256 (in mbedtls_hkdf_extract)                       ,  0x5555555c0eb0,      ,      ,      ,      ,   192,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00019,  sha256 (in mbedtls_ssl_tls1_3_derive_secret)           ,  0x5555555c0fc0,      ,      ,      ,      ,   215,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00020,  sha256 (in mbedtls_ssl_tls1_3_derive_secret)           ,  0x5555555c10d0,      ,      ,      ,      ,   215,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00021,  sha256 (in mbedtls_ssl_tls1_3_derive_secret)           ,  0x5555555bfc50,      ,      ,      ,      ,   213,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00022,  sha256 (in mbedtls_ssl_tls1_3_make_traffic_keys)       ,  0x5555555bfc50,      ,      ,      ,      ,   174,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00023,  sha256 (in mbedtls_ssl_tls1_3_make_traffic_keys)       ,  0x5555555bfc50,      ,      ,      ,      ,   174,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00024,  sha256 (in mbedtls_ssl_tls1_3_make_traffic_keys)       ,  0x5555555bfc50,      ,      ,      ,      ,   173,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00025,  sha256 (in mbedtls_ssl_tls1_3_make_traffic_keys)       ,  0x5555555bfc50,      ,      ,      ,      ,   173,      ,      ,      ,      ,      ,      ,      ,      ,      ,
+00026,  ccm/E                                                  ,  0x5555555bfde0,      ,      ,      ,      ,      ,      ,      ,      ,      ,   299,    80,    37,      ,      ,
+00027,  ccm/D                                                  ,  0x5555555c07b0,      ,      ,      ,      ,    11,    16,   301,    81,    37,      ,      ,      ,      ,      ,
+00028,  aes/E (in mbedtls_ccm_star_encrypt_and_tag)            ,  0x5555555c0850,      ,      ,      ,      ,      ,      ,      ,      ,      ,   656,   208,   144,      ,      ,
+00029,  aes/E (in mbedtls_ccm_star_auth_decrypt)               ,  0x5555555c09c0,      ,      ,      ,      ,    80,    80,   656,   240,   144,      ,      ,      ,      ,      ,
+00030,  sha256 (in mbedtls_md)                                 ,  0x7fffffff78a0,      ,      ,      ,      ,      ,      ,   197,      ,      ,      ,      ,      ,      ,      ,
+00031,  ecdsa/v                                                ,  0x7fffffff7710,      ,      ,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,      ,      ,
+00032,  sha256 (in mbedtls_ecdsa_read_signature)               ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,  2052,      ,      ,      ,      ,      ,      ,      ,
+00033,  sha256 (in mbedtls_ecdsa_read_signature)               ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,  2052,      ,      ,      ,      ,      ,      ,      ,
+00036,  sha256 (in ssl_calc_verify_tls_sha256)                 ,  0x7fffffff7a90,      ,      ,      ,      ,      ,      ,      ,   130,      ,      ,      ,      ,      ,      ,
+00037,  ecdsa/v                                                ,  0x7fffffff7ab0,      ,      ,      ,      ,      ,      ,      ,     1,      ,      ,      ,      ,      ,      ,
+00038,  sha256 (in mbedtls_ecdsa_read_signature)               ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,  2052,      ,      ,      ,      ,      ,      ,
+00039,  sha256 (in mbedtls_ecdsa_read_signature)               ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,  2052,      ,      ,      ,      ,      ,      ,
+00042,  sha256 (in mbedtls_hkdf_expand)                        ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,   179,      ,      ,      ,      ,      ,
+00043,  sha256 (in mbedtls_hkdf_expand)                        ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,   179,      ,      ,      ,      ,      ,
+00044,  sha256 (in mbedtls_md_hmac)                            ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,   192,      ,      ,      ,      ,      ,
+00049,  sha256 (in ssl_calc_verify_tls_sha256)                 ,  0x7fffffff7a00,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   130,      ,      ,      ,
+00050,  ecdsa/s                                                ,  0x7fffffff7a50,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,     1,      ,      ,      ,
+00051,  sha256 (in mbedtls_ecdsa_write_signature)              ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,  1539,      ,      ,      ,
+00052,  sha256 (in mbedtls_ssl_tls1_3_derive_secret)           ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   215,      ,      ,
+00053,  sha256 (in mbedtls_ssl_tls1_3_derive_secret)           ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   215,      ,      ,
+00054,  sha256 (in mbedtls_ssl_tls1_3_make_traffic_keys)       ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   174,      ,      ,
+00055,  sha256 (in mbedtls_ssl_tls1_3_make_traffic_keys)       ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   174,      ,      ,
+00056,  sha256 (in mbedtls_ssl_tls1_3_make_traffic_keys)       ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   173,      ,      ,
+00057,  sha256 (in mbedtls_ssl_tls1_3_make_traffic_keys)       ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   173,      ,      ,
+00060,  sha256 (in mbedtls_hkdf_expand)                        ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   179,      ,      ,
+00061,  sha256 (in mbedtls_hkdf_expand)                        ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   179,      ,      ,
+00062,  sha256 (in mbedtls_md_hmac)                            ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   192,      ,      ,
+00065,  sha256 (in mbedtls_hkdf_expand)                        ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   179,      ,      ,
+00066,  sha256 (in mbedtls_hkdf_expand)                        ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   179,      ,      ,
+00067,  sha256 (in mbedtls_md_hmac)                            ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   192,      ,      ,
+00069,  sha256 (in mbedtls_ssl_tls1_3_derive_secret)           ,  0x5555555c1150,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   213,      ,      ,
+00070,  ccm/E                                                  ,  0x5555555c07b0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,    38,
+00071,  ccm/D                                                  ,  0x5555555bfde0,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   136,
+00072,  aes/E (in mbedtls_ccm_star_encrypt_and_tag)            ,  0x5555555c3950,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   224,
+00073,  aes/E (in mbedtls_ccm_star_auth_decrypt)               ,  0x5555555c3b00,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,      ,   336,
