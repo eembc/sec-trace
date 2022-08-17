@@ -193,8 +193,9 @@ Using `cmake` rebuilds the `examples/client/client` into a binary, rather than
 a script, which is what `make` does:
 
 *TODO* 5.4.0 doesn't contain the `--force-curve` option in `server`
+
 *TODO* Update this readme when in a release.
-`
+
 ```bash
 % git clone git@github.com:wolfssl/wolfssl
 % cd wolfssl
