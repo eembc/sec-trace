@@ -254,3 +254,8 @@ Note that the prefix of the server script changes.
 
 The folder `data/` contains results collected on an Ubuntu 20 machine. The log
 contains the raw traces. The table are the final results.
+
+# Debug issues
+
+If you see the error "ssl not in this scope" (or similar) when running GDB, it means fcf protection was not enabled. Set the env variable for CFLAGS, re-run cmake and make.
+
