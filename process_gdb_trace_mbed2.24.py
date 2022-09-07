@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Copyright (c) 2022 EEMBC
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -17,7 +18,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-# #!/usr/bin/env python3
 
 # MbedTLS Handshake V2.x - states we see in our traces, in temporal order
 handshake_states = [-1, 0, 1, 2, 14, 6, 7, 8, 9, 11, 12, 13, 15, 16]

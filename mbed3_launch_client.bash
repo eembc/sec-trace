@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Copyright (c) 2022 EEMBC
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -17,7 +18,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-#!/usr/bin/env bash
 
 MBED_CLIENT_DIR=~/github/Mbed-TLS/mbedtls/build/programs/ssl
 CERT_DIR=/home/ptorelli/github/eembc/sec-trace/mycerts
@@ -34,11 +34,16 @@ XCHECK=$PWD/${prefix}xcheck.mbed3.$mode
 
 case $mode in
 high|medium|light)
+    echo "Running GDB for mode '$mode'... (output: $LOG)"
 	gdb -command=$COMMAND_DIR/mbed3_command_$mode.gdb $MBED_CLIENT_DIR/ssl_client2 > $LOG
+    echo "Processing the trace log..."
     $COMMAND_DIR/process_gdb_trace_mbed3.py $LOG > $TABLE
+    echo "Creating the crosscheck file..."
     $COMMAND_DIR/sum_crosscheck.pl $TABLE > $XCHECK
     ;;
 *)
 	echo "Mode '$mode' is not valid; must be light, medium, high"
 	exit -1
 esac
+
+echo "Done!"

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Copyright (c) 2022 EEMBC
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -17,7 +18,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-#!/usr/bin/env python3
 
 # Note: the backtrace info comes from FRIDA Accuracy.FUZZY, so above a certain
 # level it might be bogus. There is a regex at the end to purge everything
